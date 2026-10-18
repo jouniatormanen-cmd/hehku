@@ -17,6 +17,48 @@ body{background:#e9e2e8;color:#322b35}#valikoima{background:linear-gradient(150d
 
 /* HEHKU v0.6: airy neutral-lilac showroom with subtle motion */
 body{background:#f3eef2;color:#302a35}#valikoima{background:linear-gradient(155deg,#f7f3f6 0%,#eee8f0 55%,#f4eff2 100%);color:#302a35}#valikoima .lead{color:#5d5260}#valikoima .product-grid .tile,#valikoima .product-grid .tile:nth-child(2n){background:linear-gradient(145deg,#fff,#f5f0f6);border-color:#ddd0dc;color:#443747}#valikoima .demo-card{background:#fff;color:#342c38;border-color:#e1d6e1}#valikoima .demo-card:hover{border-color:#ad8ea8}#valikoima .demo-art{background:radial-gradient(circle at 30% 20%,#ffffffb8,transparent 42%),linear-gradient(135deg,#eee3ed,#dcd6e6)}#valikoima .demo-card[data-category="intime"] .demo-art{background:radial-gradient(circle at 30% 20%,#9b819b,transparent 62%),linear-gradient(135deg,#5d4964,#8a7288)}#valikoima .demo-card h3{color:#46344a}#valikoima .demo-price{color:#6f4a66}.stripe{background:linear-gradient(145deg,#ede4ec,#f4eef2);color:#362d3a}.stripe .tile{background:#fff;color:#3e3442;border-color:#dfd1de}#tarina{background:#f5f0f3;color:#362d3a}#tarina .mock{background:#fff;border-color:#dfd2df}#valikoima .product-grid .tile{transition:transform .25s ease,box-shadow .25s ease}#valikoima .product-grid .tile:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:0 20px 40px #49304a25}.hero{position:relative}.hero:after{content:"✦";position:absolute;right:8%;top:14%;font-size:clamp(50px,10vw,150px);color:#edc98a24;pointer-events:none;animation:hehkuFloat 7s ease-in-out infinite}.demo-art{overflow:hidden}.demo-art:before{content:"";position:absolute;width:80px;height:250%;left:-110px;top:-70%;background:linear-gradient(90deg,transparent,#fff9,transparent);transform:rotate(25deg);pointer-events:none}.demo-card:hover .demo-art:before{animation:hehkuShine 1.1s ease-out 1}.demo-card:hover .demo-art{filter:saturate(1.12)}@keyframes hehkuFloat{0%,100%{transform:translateY(0) rotate(-8deg);opacity:.55}50%{transform:translateY(16px) rotate(10deg);opacity:1}}@keyframes hehkuShine{from{left:-110px}to{left:125%}}@media(prefers-reduced-motion:reduce){.hero:after,.demo-card:hover .demo-art:before{animation:none}#valikoima .product-grid .tile{transition:none}#valikoima .product-grid .tile:hover{transform:none}}
+
+/* HEHKU unified graphite and copper theme */
+:root{--dark:#26242a;--plum:#49424b;--pink:#c18a70;--gold:#d6a47a;--cream:#d9d5d3;--ink:#302e33}
+body{background:#d9d5d3;color:#302e33}
+header{background:radial-gradient(ellipse at 20% 45%,#55414e 0%,transparent 42%),linear-gradient(110deg,#252329,#40343f 55%,#252329)}
+.hero{background:radial-gradient(circle at 80% 25%,#76545a 0%,transparent 40%),linear-gradient(135deg,#302b32,#51414c)}
+.hero h1 span{color:#e3ad8b}
+.hero:after{color:#d6a47a40}
+.btn{background:#d6a47a;border-color:#d6a47a;color:#28252a}
+nav a:hover,nav a:focus{color:#e4b58f}
+#valikoima{background:linear-gradient(155deg,#dedad8,#c9c7ca 56%,#d7d1d0);color:#302e33}
+#valikoima .lead{color:#514d54}
+#valikoima .pill,.pill{background:#e2d4cb;color:#55413e;border:1px solid #b99c8c}
+#valikoima .product-grid .tile,#valikoima .product-grid .tile:nth-child(2n){background:linear-gradient(145deg,#eeeae8,#dedbdb);border:1px solid #bcb4b8;color:#38343a}
+#valikoima .product-grid .tile h3{color:#4d3e45}
+#valikoima .product-grid .tile:after{color:#b58b761f}
+#valikoima .tile .symbol{background:linear-gradient(145deg,#d9c7bf,#bcb5be)}
+#valikoima .demo-card{background:#eeeae8;color:#302e33;border-color:#beb6ba}
+#valikoima .demo-art{background:radial-gradient(circle at 30% 20%,#ffffff66,transparent 42%),linear-gradient(135deg,#c7bdba,#a6a1ab)}
+#valikoima .demo-card[data-category="intime"] .demo-art{background:radial-gradient(circle at 30% 20%,#987a7d,transparent 60%),linear-gradient(135deg,#403640,#6e5963)}
+#valikoima .demo-card h3{color:#39343b}
+#valikoima .demo-card>p:not(.demo-info){color:#504b52}
+#valikoima .demo-label,#valikoima .demo-info{color:#655961}
+#valikoima .demo-price{color:#805c49}
+#valikoima .demo-card button{background:#494047;border-color:#494047;color:white}
+#valikoima .demo-card button:hover{background:#66535c}
+#valikoima .demo-controls button{background:#eae5e2;border-color:#b2a5a8;color:#443b43}
+#valikoima .demo-controls button[aria-pressed=true]{background:#494047;border-color:#494047;color:white}
+#valikoima .notice{background:#eae5e2;color:#423b40;border-color:#b98665}
+.stripe{background:linear-gradient(140deg,#ccc6c5,#dbd4d0);color:#343039}
+.stripe .tile{background:#eae5e2;border-color:#bcb2b5;color:#37323a}
+.stripe .tile .symbol{background:#d1c3bf}
+.stripe h3{color:#57444b}
+.intime{background:linear-gradient(135deg,#29262c,#4d414a);color:white}
+.intime h2{color:#e2b38e}
+.intime .lead{color:#e6d8d4}
+.intime .btn{background:#d6a47a;border-color:#d6a47a}
+#tarina{background:#d7d1cf;color:#343039}
+#tarina .mock{background:#ebe6e3;border-color:#bfb4b7;color:#343039}
+#tarina .mock small{color:#625960}
+#tarina .mock .tag{color:#8b634d}
+footer{background:#29262c;border-top:2px solid #b98665}
 </style></head><body>
 <header><div class="bar"><a class="logo" href="#alku" aria-label="HEHKU – etusivu"><img src="hehku-logo.png" alt="HEHKU"></a><nav aria-label="Päävalikko"><a href="#valikoima">Valikoima</a><a href="#intime">Hehku Intime</a><a href="#miksi">Miksi Hehku?</a><a href="#tarina">Meistä</a></nav></div></header>
 <main><div class="hero" id="alku"><div class="wrap"><div class="eyebrow">Aikuisten lelukauppa · Intiimihyvinvoinnin verkkokauppa</div><h1>Löydä oma <span>hehkusi.</span></h1><p>HEHKU on kehitteillä oleva aikuisten lelukauppa, jossa seksilelut, intiimihyvinvointi ja sopiva ripaus luksusta kohtaavat. Tutustu tulevaan valikoimaamme – pilke silmäkulmassa ja omalla tyylilläsi.</p><div class="actions"><a class="btn" href="#valikoima">Tutustu valikoimaan ↓</a><a class="btn alt" href="#intime">HEHKU INTIME ✦</a></div></div></div>
