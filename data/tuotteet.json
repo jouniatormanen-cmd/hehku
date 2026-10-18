@@ -85,6 +85,34 @@
       "on_demo": true,
       "saatavuus": "ei myynnissä",
       "kuva_url": null
+    },
+    {
+      "id": "6",
+      "nimi": "Hehku Hohde",
+      "kategoria": "hyvinvointi",
+      "hinta_eur": 19.9,
+      "valuutta": "EUR",
+      "kuvake": "🌿",
+      "nosto": "Uusi testituote",
+      "kuvaus": "Kuvitteellinen hyvinvointituote rauhallisiin hemmotteluhetkiin.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    },
+    {
+      "id": "7",
+      "nimi": "Hehku Hetki",
+      "kategoria": "pareille",
+      "hinta_eur": 44.9,
+      "valuutta": "EUR",
+      "kuvake": "💞",
+      "nosto": "Uusi testituote",
+      "kuvaus": "Kuvitteellinen parituote yhteisiin hyvinvointihetkiin.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
     }
   ]
 }
