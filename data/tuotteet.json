@@ -14,7 +14,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": false,
+      "tarjouksessa": false
     },
     {
       "id": "1",
@@ -28,7 +30,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": false,
+      "tarjouksessa": false
     },
     {
       "id": "2",
@@ -42,7 +46,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": false,
+      "tarjouksessa": false
     },
     {
       "id": "3",
@@ -56,7 +62,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": false,
+      "tarjouksessa": false
     },
     {
       "id": "4",
@@ -70,7 +78,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": false,
+      "tarjouksessa": false
     },
     {
       "id": "5",
@@ -84,7 +94,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": false,
+      "tarjouksessa": false
     },
     {
       "id": "6",
@@ -98,7 +110,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": true,
+      "tarjouksessa": false
     },
     {
       "id": "7",
@@ -112,7 +126,9 @@
       "tila": "luonnos",
       "on_demo": true,
       "saatavuus": "ei myynnissä",
-      "kuva_url": null
+      "kuva_url": null,
+      "uutuus": true,
+      "tarjouksessa": false
     }
   ]
 }
