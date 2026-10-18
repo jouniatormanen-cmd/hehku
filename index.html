@@ -349,6 +349,12 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
    Cover that static numeral and paint the live value on the actual visible cart. */
 .approved-home .hotspot-cart{overflow:visible!important}
 .approved-home .hero-cart-live-count{position:absolute;top:1%;right:-3%;display:flex;align-items:center;justify-content:center;width:29%;aspect-ratio:1;border-radius:50%;background:#6b214b;color:#fff;font:700 clamp(10px,1.55vw,17px)/1 Arial,sans-serif;box-shadow:0 0 0 2px #f4d8bd;z-index:5;pointer-events:none}
+
+/* HEHKU: ensure the slide-out navigation remains readable at all viewport widths. */
+.approved-menu-drawer{box-sizing:border-box!important;width:min(94vw,420px)!important;max-width:calc(100vw - 8px)!important;overflow-x:hidden!important;overflow-y:auto!important;}
+.approved-menu-drawer>a{box-sizing:border-box;min-width:0;max-width:100%;white-space:normal!important;overflow-wrap:anywhere;word-break:normal;flex-shrink:0;}
+.approved-menu-top{min-width:0;flex-shrink:0;}
+.approved-menu-top span{min-width:0;overflow-wrap:anywhere;}
 </style></head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
