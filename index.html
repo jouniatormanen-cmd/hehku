@@ -379,4 +379,9 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
 /* HEHKU product card navigation */
 (()=>{document.querySelectorAll('.demo-card').forEach(card=>{const image=card.querySelector('a.demo-art[href]');if(!image)return;card.tabIndex=0;card.setAttribute('role','link');card.setAttribute('aria-label','Näytä tuote: '+(card.querySelector('h3')?.textContent||''));const navigate=()=>{window.location.href=image.href};card.addEventListener('click',e=>{if(e.target.closest('button,a,input,select,textarea'))return;navigate()});card.addEventListener('keydown',e=>{if(e.target!==card)return;if(e.key==='Enter'){e.preventDefault();navigate()}});});})();
 </script>
+<script>
+/* HEHKU: independent cart badge synchronization, also after returning from product pages. */
+(()=>{const key='hehku_demo_cart_v1';function updateCartBadges(){let quantity=0;try{const cart=JSON.parse(localStorage.getItem(key)||'{}');if(cart&&typeof cart==='object'&&!Array.isArray(cart)){for(const value of Object.values(cart)){const n=Number(value);if(Number.isInteger(n)&&n>0)quantity+=Math.min(n,99)}}}catch(e){}for(const id of ['header-cart-count','mobile-cart-count']){const el=document.getElementById(id);if(el){el.textContent=String(quantity);el.hidden=false;el.removeAttribute('hidden')}}for(const selector of ['.header-cart','.mobile-cart']){const link=document.querySelector(selector);if(link)link.setAttribute('aria-label','Siirry ostoskoriin, '+quantity+' tuotetta')} }
+updateCartBadges();window.addEventListener('pageshow',updateCartBadges);window.addEventListener('focus',updateCartBadges);document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateCartBadges()});window.addEventListener('storage',e=>{if(e.key===key)updateCartBadges()});document.addEventListener('click',e=>{if(e.target.closest('.cart-add,.cart-actions button,#cart-clear'))queueMicrotask(updateCartBadges)});})();
+</script>
 </body></html>
