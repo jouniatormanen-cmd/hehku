@@ -59,6 +59,22 @@ nav a:hover,nav a:focus{color:#e4b58f}
 #tarina .mock small{color:#625960}
 #tarina .mock .tag{color:#8b634d}
 footer{background:#29262c;border-top:2px solid #b98665}
+
+/* HEHKU: subtle movement and copper accents below the hero */
+#valikoima h2:after,#miksi h2:after,#tarina h2:after{content:"";display:block;width:78px;height:3px;margin-top:16px;background:linear-gradient(90deg,#a7755d,#dbad83);border-radius:3px}
+#valikoima .product-grid .tile{transition:transform .3s,box-shadow .3s}
+#valikoima .product-grid .tile:hover{transform:translateY(-8px);box-shadow:0 20px 36px #33232b30}
+#valikoima .tile .symbol{transition:transform .3s}
+#valikoima .tile:hover .symbol{transform:rotate(-6deg) scale(1.08)}
+#valikoima .demo-card:hover{transform:translateY(-7px)}
+#valikoima .demo-price:after{content:"";display:block;width:35px;height:2px;margin-top:5px;background:#b78566;transition:width .3s}
+#valikoima .demo-card:hover .demo-price:after{width:85px}
+.intime{position:relative;overflow:hidden}
+.intime:after{content:"✦";position:absolute;right:9%;top:8%;font-size:180px;color:#d6a47a20;pointer-events:none;animation:hehkuDrift 8s ease-in-out infinite}
+@keyframes hehkuDrift{50%{transform:translateY(16px) rotate(12deg)}}
+#miksi .tile{transition:transform .3s,box-shadow .3s}
+#miksi .tile:hover{transform:translateY(-6px);box-shadow:0 15px 30px #33232b25}
+@media(prefers-reduced-motion:reduce){.intime:after{animation:none}#valikoima .product-grid .tile:hover,#valikoima .demo-card:hover,#miksi .tile:hover{transform:none}}
 </style></head><body>
 <header><div class="bar"><a class="logo" href="#alku" aria-label="HEHKU – etusivu"><img src="hehku-logo.png" alt="HEHKU"></a><nav aria-label="Päävalikko"><a href="#valikoima">Valikoima</a><a href="#intime">Hehku Intime</a><a href="#miksi">Miksi Hehku?</a><a href="#tarina">Meistä</a></nav></div></header>
 <main><div class="hero" id="alku"><div class="wrap"><div class="eyebrow">Aikuisten lelukauppa · Intiimihyvinvoinnin verkkokauppa</div><h1>Löydä oma <span>hehkusi.</span></h1><p>HEHKU on kehitteillä oleva aikuisten lelukauppa, jossa seksilelut, intiimihyvinvointi ja sopiva ripaus luksusta kohtaavat. Tutustu tulevaan valikoimaamme – pilke silmäkulmassa ja omalla tyylilläsi.</p><div class="actions"><a class="btn" href="#valikoima">Tutustu valikoimaan ↓</a><a class="btn alt" href="#intime">HEHKU INTIME ✦</a></div></div></div>
