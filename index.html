@@ -90,6 +90,31 @@ footer{background:#29262c;border-top:2px solid #b98665}
 /* Functional local demo basket */
 .cart-panel{margin-top:40px;padding:28px;border:1px solid #a99798;border-radius:24px;background:linear-gradient(145deg,#ece6e2,#d6d0d1);box-shadow:0 14px 32px #33232b1d;color:#302c32}
 .cart-head{display:flex;justify-content:space-between;align-items:center;gap:16px}.cart-head h2{margin:6px 0 12px;font-size:clamp(26px,3vw,38px)}.cart-head h2:after{display:none!important}.cart-icon{font-size:40px}.cart-disclaimer{max-width:750px;color:#4e454c}.cart-empty{padding:20px;border:1px dashed #b8aaac;border-radius:12px}.cart-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;border-bottom:1px solid #b9afb0}.cart-row b{display:block}.cart-row small{color:#5c5158}.cart-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cart-actions button,.cart-footer button{cursor:pointer;border:1px solid #63525a;border-radius:10px;background:#494047;color:#fff;padding:7px 12px;font-weight:750}.cart-actions button:hover,.cart-footer button:hover{background:#6a5660}.cart-actions output{min-width:22px;text-align:center;font-weight:800}.cart-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:22px}.cart-footer strong{font-size:22px}.cart-demo-note{margin:18px 0 0;font-size:13px;font-weight:800;color:#745343}.cart-add:focus-visible,.cart-actions button:focus-visible,.cart-footer button:focus-visible{outline:3px solid #d6a47a;outline-offset:3px}@media(max-width:720px){.cart-panel{padding:20px}.cart-row{align-items:flex-start;flex-direction:column}}
+
+/* HEHKU demo basket visual refinement */
+.cart-panel{position:relative;overflow:hidden;background:linear-gradient(145deg,#f0ebe7 0%,#ded8d6 100%);border:1px solid #b6a7a3;border-top:4px solid #bc8a6b;border-radius:22px;box-shadow:0 18px 42px #29232a23;padding:30px 34px}
+.cart-panel:before{content:"";position:absolute;right:-90px;top:-110px;width:290px;height:290px;border-radius:50%;background:radial-gradient(circle,#d4a27b38,transparent 68%);pointer-events:none}
+.cart-head{position:relative;border-bottom:1px solid #c9bdb9;margin-bottom:18px;padding-bottom:10px}
+.cart-head .eyebrow{color:#79523f}
+.cart-head h2{letter-spacing:-.025em}
+.cart-head #cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 9px;background:#4b4048;color:#fff;border-radius:30px;font-size:19px;vertical-align:middle}
+.cart-icon{display:grid;place-items:center;width:65px;height:65px;border-radius:18px;background:#e0d0c5;border:1px solid #c4ac9d;font-size:31px}
+.cart-disclaimer{font-size:15px;line-height:1.6}
+.cart-row{background:#f8f5f2;border:1px solid #d0c4c0;border-radius:14px;padding:15px 18px;margin:10px 0;box-shadow:0 3px 12px #33232b0b}
+.cart-row b{font-size:17px;color:#352d35}
+.cart-row small{font-size:14px}
+.cart-actions button{min-width:36px;min-height:36px;border-radius:9px;background:#51454e;border-color:#51454e;transition:background .2s,transform .2s}
+.cart-actions button:hover{background:#78606b;transform:translateY(-1px)}
+.cart-actions button:last-child{background:transparent;color:#6e4540;border-color:#b69b92}
+.cart-actions button:last-child:hover{background:#eee0d9}
+.cart-actions output{min-width:32px}
+.cart-footer{padding-top:19px;border-top:1px solid #bdb0ad}
+.cart-footer strong{font-size:24px;color:#3e343d}
+#cart-total{color:#81553e}
+.cart-footer button{background:transparent;color:#53404a;border-color:#a99294}
+.cart-footer button:hover{background:#e5d5cc}
+.cart-demo-note{display:inline-block;padding:9px 13px;border-radius:10px;background:#e3d6cd;color:#6d4b3e;font-size:12px;letter-spacing:.025em}
+@media(max-width:720px){.cart-panel{padding:22px 18px}.cart-row{padding:14px}.cart-head #cart-count{height:30px;min-width:30px;font-size:15px}}
 </style></head><body>
 <header><div class="bar"><a class="logo" href="#alku" aria-label="HEHKU – etusivu"><img src="hehku-logo.png" alt="HEHKU"></a><nav aria-label="Päävalikko"><a href="#valikoima">Valikoima</a><a href="#intime">Hehku Intime</a><a href="#miksi">Miksi Hehku?</a><a href="#tarina">Meistä</a></nav></div></header>
 <main><div class="hero" id="alku"><div class="wrap"><div class="eyebrow">Aikuisten lelukauppa · Intiimihyvinvoinnin verkkokauppa</div><h1>Löydä oma <span>hehkusi.</span></h1><p>HEHKU on kehitteillä oleva aikuisten lelukauppa, jossa seksilelut, intiimihyvinvointi ja sopiva ripaus luksusta kohtaavat. Tutustu tulevaan valikoimaamme – pilke silmäkulmassa ja omalla tyylilläsi.</p><div class="actions"><a class="btn" href="#valikoima">Tutustu valikoimaan ↓</a><a class="btn alt" href="#intime">HEHKU INTIME ✦</a></div></div></div>
