@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "kuvaus": "HEHKUn kuvitteelliset esimerkkituotteet. Ei oikeita tuotteita eikä tilauksia.",
+  "tuotteet": [
+    {
+      "id": "0",
+      "nimi": "Hehku Sointu",
+      "kategoria": "naisille",
+      "hinta_eur": 29.9,
+      "valuutta": "EUR",
+      "kuvake": "🌸",
+      "nosto": "Pehmeä aloitus",
+      "kuvaus": "Hellävarainen hierontalaite omaan rentoutumiseen.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    },
+    {
+      "id": "1",
+      "nimi": "Hehku Kipinä",
+      "kategoria": "naisille",
+      "hinta_eur": 39.9,
+      "valuutta": "EUR",
+      "kuvake": "💗",
+      "nosto": "Suosittu valinta",
+      "kuvaus": "Kompakti hyvinvointilaite omaan hetkeen.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    },
+    {
+      "id": "2",
+      "nimi": "Hehku Syke",
+      "kategoria": "miehille",
+      "hinta_eur": 34.9,
+      "valuutta": "EUR",
+      "kuvake": "⚡",
+      "nosto": "Omaan hetkeen",
+      "kuvaus": "Miehille suunniteltu intiimihyvinvoinnin testituote.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    },
+    {
+      "id": "3",
+      "nimi": "Hehku Duo",
+      "kategoria": "pareille",
+      "hinta_eur": 49.9,
+      "valuutta": "EUR",
+      "kuvake": "💕",
+      "nosto": "Yhdessä",
+      "kuvaus": "Yhteisiin hetkiin suunniteltu parituote.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    },
+    {
+      "id": "4",
+      "nimi": "Hehku Silkki",
+      "kategoria": "hyvinvointi",
+      "hinta_eur": 12.9,
+      "valuutta": "EUR",
+      "kuvake": "💧",
+      "nosto": "Hyvinvointi",
+      "kuvaus": "Vesipohjainen liukuvoide, kuvitteellinen esimerkkituote.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    },
+    {
+      "id": "5",
+      "nimi": "Intime Lumi",
+      "kategoria": "intime",
+      "hinta_eur": 89.9,
+      "valuutta": "EUR",
+      "kuvake": "✨",
+      "nosto": "HEHKU INTIME",
+      "kuvaus": "Premium-sarjan tyylikäs hyvinvointilaite.",
+      "tila": "luonnos",
+      "on_demo": true,
+      "saatavuus": "ei myynnissä",
+      "kuva_url": null
+    }
+  ]
+}
