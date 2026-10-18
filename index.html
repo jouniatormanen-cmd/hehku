@@ -420,6 +420,6 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
 
 <script>
 /* One source of truth: the visible basket count. */
-(()=>{const count=document.getElementById('cart-count');if(!count)return;function sync(){const n=Math.max(0,Number((count.textContent||'').replace(/[^0-9]/g,''))||0);for(const id of ['header-cart-count','mobile-cart-count']){const badge=document.getElementById(id);if(badge){badge.textContent=String(n);badge.hidden=n===0;badge.toggleAttribute('hidden',n===0)}}for(const selector of ['.header-cart','.mobile-cart']){const link=document.querySelector(selector);if(link)link.setAttribute('aria-label','Siirry ostoskoriin, '+n+' tuotetta')}}new MutationObserver(sync).observe(count,{childList:true,characterData:true,subtree:true});sync();})();
+(()=>{const count=document.getElementById('cart-count');if(!count)return;function sync(){const n=Math.max(0,Number((count.textContent||'').replace(/[^0-9]/g,''))||0);const heroBadge=document.getElementById('hero-cart-live-count');if(heroBadge)heroBadge.textContent=String(n);for(const id of ['header-cart-count','mobile-cart-count']){const badge=document.getElementById(id);if(badge){badge.textContent=String(n);badge.hidden=n===0;badge.toggleAttribute('hidden',n===0)}}for(const selector of ['.header-cart','.mobile-cart']){const link=document.querySelector(selector);if(link)link.setAttribute('aria-label','Siirry ostoskoriin, '+n+' tuotetta')}}new MutationObserver(sync).observe(count,{childList:true,characterData:true,subtree:true});sync();})();
 </script>
 </body></html>
