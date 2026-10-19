@@ -48,6 +48,28 @@ Object.assign(dictionary,{
 "Ostamisen kulku on käyty läpi. Tämä ei ole tilausvahvistus eikä oikeaa tilausta ole tehty.":["Köpflödet har gåtts igenom. Detta är ingen orderbekräftelse och ingen riktig beställning har gjorts.","The purchase flow has been demonstrated. This is not an order confirmation and no real order has been placed."],
 "HEHKU · Testikassa · Ei oikeita tilauksia tai maksuja":["HEHKU · Testkassa · Inga riktiga beställningar eller betalningar","HEHKU · Demo checkout · No real orders or payments"]
 });
+Object.assign(dictionary,{
+"Kaikki hinnat":["Alla priser","All prices"],
+"Enimmäishinta":["Maxpris","Maximum price"],
+"Järjestys":["Sortering","Sort order"],
+"Hae tuotteita":["Sök produkter","Search products"],
+"Oletusjärjestys":["Standardordning","Default order"],
+"Halvin ensin":["Billigast först","Lowest price first"],
+"Kallein ensin":["Dyrast först","Highest price first"],
+"Nimen mukaan":["Efter namn","By name"],
+"Tyhjennä rajaukset":["Rensa filter","Clear filters"],
+"Valitse tuoteryhmä":["Välj produktkategori","Choose product category"],
+"Rajaa tuotteita":["Filtrera produkter","Filter products"],
+"ERILLINEN TESTIVERSIO":["SEPARAT TESTVERSION","SEPARATE TEST VERSION"],
+"Kuvitteelliset tuotteet ja hinnat. Ei oikeita tilauksia eikä maksamista.":["Fiktiva produkter och priser. Inga riktiga beställningar eller betalningar.","Fictional products and prices. No real orders or payments."],
+"Tässä kokeillaan, miten tuotteet ilmestyvät sivulle automaattisesti yhdestä tuoteluettelosta. Nykyinen kauppa ei muutu.":["Här testas hur produkter visas automatiskt från en gemensam produktkatalog. Den nuvarande butiken ändras inte.","This tests how products appear automatically from a single catalog. The current store is unchanged."],
+"HEHKU · Tuoteluettelon kehitystesti · Ei myyntiä":["HEHKU · Utvecklingstest av produktkatalogen · Ingen försäljning","HEHKU · Product catalog development test · No sales"],
+"Ladataan tuotteita…":["Laddar produkter…","Loading products…"],
+"Kaikki":["Alla","All"],
+"Tuotetta ei löytynyt":["Produkten hittades inte","Product not found"],
+"Tuotetietoja ei voitu ladata":["Produktuppgifterna kunde inte laddas","Could not load product information"],
+"Yritä myöhemmin uudelleen.":["Försök igen senare.","Please try again later."]
+});
 function translate(text,lang=language()){if(lang==='fi')return text;const raw=String(text),trimmed=raw.trim();const x=dictionary[trimmed];if(x)return x[lang==='sv'?0:1];const match=trimmed.match(/^(←\s*|✓\s*|\d+\s*·\s*)(.*?)(\s*→)?$/);if(match&&match[2]!==trimmed){const inner=dictionary[match[2]];if(inner)return (match[1]||'')+inner[lang==='sv'?0:1]+(match[3]||'')}return text}
 const translatedNodes=new WeakMap();
 const translatedAttributes=new WeakMap();
