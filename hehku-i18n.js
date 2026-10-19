@@ -70,6 +70,15 @@ Object.assign(dictionary,{
 "Tuotetietoja ei voitu ladata":["Produktuppgifterna kunde inte laddas","Could not load product information"],
 "Yritä myöhemmin uudelleen.":["Försök igen senare.","Please try again later."]
 });
+Object.assign(dictionary,{
+"Tutustu tuotteisiin":["Utforska produkterna","Explore products"],
+"Uutuudet ja tarjoukset":["Nyheter och erbjudanden","New arrivals and offers"],
+"Tutustu tuleviin tuoteosastoihin. Valikoimaa rakennetaan parhaillaan, ja nyt voit kokeilla sivustoa kuvitteellisilla testituotteilla.":["Utforska våra kommande produktkategorier. Sortimentet byggs upp och du kan redan prova webbplatsen med fiktiva demoprodukter.","Explore our upcoming product categories. The selection is being developed, and you can already try the site with fictional demo products."],
+"Tutustu HEHKUn valikoimaan ✨":["Utforska HEHKUs sortiment ✨","Explore the HEHKU collection ✨"],
+"Tutustu tuotteeseen":["Utforska produkten","View product"],
+"Tutustu tuotteisiin ↓":["Utforska produkterna ↓","Explore products ↓"],
+"Kaikki tuotteet →":["Alla produkter →","All products →"]
+});
 function translate(text,lang=language()){if(lang==='fi')return text;const raw=String(text),trimmed=raw.trim();const x=dictionary[trimmed];if(x)return x[lang==='sv'?0:1];const match=trimmed.match(/^(←\s*|✓\s*|\d+\s*·\s*)(.*?)(\s*→)?$/);if(match&&match[2]!==trimmed){const inner=dictionary[match[2]];if(inner)return (match[1]||'')+inner[lang==='sv'?0:1]+(match[3]||'')}return text}
 const translatedNodes=new WeakMap();
 const translatedAttributes=new WeakMap();
