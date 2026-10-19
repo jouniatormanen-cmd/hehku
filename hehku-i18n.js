@@ -105,7 +105,7 @@ function translatePage(){
   let state=translatedNodes.get(node);
   if(!state||current!==state.rendered){state={source:trimmed,rendered:current};}
   const translated=translate(state.source,lang);
-  const next=current.replace(trimmed,translated);
+  const leading=current.match(/^\s*/)[0],trailing=current.match(/\s*$/)[0];const next=leading+translated+trailing;
   state.rendered=next;translatedNodes.set(node,state);
   if(next!==current)node.nodeValue=next;
  }
