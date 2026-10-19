@@ -413,7 +413,15 @@ body>header,body>.approved-demo-disclaimer+ .approved-shop-intro+header{display:
 /* Show the header cart count bubble only when at least one item is present. */
 #hehku-top-a-qty:empty,#hehku-top-a-qty[data-empty="true"]{display:none!important}
 
-</style><style id="hehku-lang-style">.hehku-language{position:relative;margin:8px auto 10px;max-width:max-content;z-index:30;display:flex;gap:3px;background:#241124e8;padding:4px 6px;border:1px solid #edc98a99;border-radius:18px}.hehku-language button{font:700 11px system-ui,sans-serif;color:#fff;background:transparent;border:0;border-radius:12px;padding:4px 5px;cursor:pointer}.hehku-language button[aria-pressed="true"]{background:#edc98a;color:#241124}@media(max-width:600px){.hehku-language{margin:6px auto 8px}.hehku-language button{font-size:10px;padding:3px}}</style><script src="hehku-i18n.js?v=20261019b" defer></script></head><body>
+</style><style id="hehku-lang-style">.hehku-language{position:relative;margin:8px auto 10px;max-width:max-content;z-index:30;display:flex;gap:3px;background:#241124e8;padding:4px 6px;border:1px solid #edc98a99;border-radius:18px}.hehku-language button{font:700 11px system-ui,sans-serif;color:#fff;background:transparent;border:0;border-radius:12px;padding:4px 5px;cursor:pointer}.hehku-language button[aria-pressed="true"]{background:#edc98a;color:#241124}@media(max-width:600px){.hehku-language{margin:6px auto 8px}.hehku-language button{font-size:10px;padding:3px}}
+/* Mobile: one prominent hamburger instead of a long horizontal category strip. */
+@media(max-width:720px){
+ .hehku-top-a-categories{display:none!important}
+ .hehku-top-a-main{gap:9px;justify-content:space-between}
+ #hehku-top-a-menu{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:104px;padding:10px 13px!important;border:2px solid #edc98a!important;border-radius:12px;background:#4b2040!important;color:#ffe1a5!important;font-size:15px!important;font-weight:800!important;box-shadow:0 0 14px #edc98a33}
+ #hehku-top-a-menu:focus-visible{outline:3px solid #fff;outline-offset:3px}
+}
+</style><script src="hehku-i18n.js?v=20261019b" defer></script></head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
 (function(){
