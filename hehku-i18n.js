@@ -12,8 +12,30 @@ Object.assign(dictionary,{"Tarkista tuotteet ja kokeile toimitustavan valintaa. 
 Object.assign(dictionary,{"← Takaisin ostoskoriin":["← Tillbaka till varukorgen","← Back to cart"],"VERKKOKAUPAN ESITTELYVERSIO":["DEMOVERSION AV WEBBUTIKEN","ONLINE STORE DEMO"],"Testikassa":["Testkassa","Demo checkout"],"1 · Tuotteet":["1 · Produkter","1 · Products"],"2 · Testikassa":["2 · Testkassa","2 · Demo checkout"],"3 · Demon yhteenveto":["3 · Demosammanfattning","3 · Demo summary"],"Ostoskorisi":["Din varukorg","Your cart"],"← Jatka tuotteisiin":["← Fortsätt till produkter","← Continue shopping"],"Toimitustapa · esimerkki":["Leveranssätt · exempel","Delivery method · example"],"Noutopiste · 4,90 €":["Utlämningsställe · 4,90 €","Pickup point · €4.90"],"Havainnollinen toimitusvaihtoehto":["Illustrativt leveransalternativ","Illustrative delivery option"],"Toimitus":["Leverans","Delivery"],"Tuotteet":["Produkter","Products"],"Välisumma":["Delsumma","Subtotal"],"Yhteenveto":["Sammanfattning","Summary"],"Suosittu valinta":["Populärt val","Popular choice"],"Omaan hetkeen":["För en stund för dig själv","For your own moment"],"Yhdessä":["Tillsammans","Together"],"Sinun hetkesi. Sinun nautintosi.":["Din stund. Din njutning.","Your moment. Your pleasure."],"Jokaiselle budjetille":["För varje budget","For every budget"],"Yksityisyys ensin":["Integritet först","Privacy first"],"Pilke mukana":["Med glimten i ögat","With a playful touch"],"Tutustu Hehkun tarinaan":["Läs HEHKUs historia","Discover HEHKU's story"],"HEHKU – pieni hetki itsellesi.":["HEHKU – en stund för dig själv.","HEHKU – a moment for yourself."],"HEHKUN YLELLISEMPI PUOLI":["HEHKUS LYXIGARE SIDA","THE LUXURIOUS SIDE OF HEHKU"],"TARINAMME ON VASTA ALUSSA":["VÅR HISTORIA HAR BARA BÖRJAT","OUR STORY IS JUST BEGINNING"]});
 Object.assign(dictionary,{"Lisää testikoriin":["Lägg i testvarukorgen","Add to demo cart"],"Tyhjennä kori":["Töm varukorgen","Clear cart"],"Siirry testikassalle →":["Gå till testkassan →","Go to demo checkout →"],"Yhteensä":["Totalt","Total"],"Ostoskori":["Varukorg","Cart"],"Poista":["Ta bort","Remove"],"Lisää":["Lägg till","Add"],"Vähennä":["Minska","Decrease"],"Hinta":["Pris","Price"],"Määrä":["Antal","Quantity"],"Tuotteen tiedot":["Produktinformation","Product details"],"Tuotetiedot":["Produktinformation","Product details"],"Tuotteiden lataus epäonnistui":["Det gick inte att ladda produkterna","Could not load products"],"Tuotetietoja ei voitu ladata. Yritä hetken kuluttua uudelleen.":["Produktinformationen kunde inte laddas. Försök igen om en stund.","Product information could not be loaded. Please try again shortly."],"Selaimen tallennus ei onnistunut.":["Det gick inte att spara i webbläsaren.","Could not save in the browser."],"Havainnollinen yksityiskohtanäkymä, ei oikea tuotekuva.":["Illustrativ detaljvy, inte en riktig produktbild.","Illustrative detail view, not an actual product photo."],"Havainnollinen pakkausnäkymä, ei oikea pakkauskuva.":["Illustrativ förpackningsvy, inte en riktig förpackningsbild.","Illustrative packaging view, not an actual package photo."],"Suunnittelemme turvallista asiointia ja huomaamattomia toimituksia.":["Vi planerar trygg handel och diskreta leveranser.","We are planning secure shopping and discreet deliveries."],"Kokeile toimivaa tuotevalikoimaa":["Prova vårt demosortiment","Explore our demo selection"],"Avaa kaikki 8 testituotetta →":["Visa alla 8 testprodukter →","View all 8 demo products →"],"HEHKU · TESTIKAUPPA":["HEHKU · DEMOBUTIK","HEHKU · DEMO STORE"],"Ostoskorisi on vielä tyhjä.":["Din varukorg är fortfarande tom.","Your cart is still empty."]});
 function translate(text,lang=language()){if(lang==='fi')return text;const x=dictionary[String(text).trim()];return x?x[lang==='sv'?0:1]:text}
-function translatePage(){const lang=language();document.documentElement.lang=lang;const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);for(const node of nodes){const p=node.parentElement;if(!p||p.closest('script,style,svg,textarea,[contenteditable="true"]'))continue;const current=node.nodeValue;const trimmed=current.trim();if(!trimmed)continue;if(!node.__hehkuFi)node.__hehkuFi=trimmed;const translated=translate(node.__hehkuFi,lang);if(translated!==node.__hehkuFi||current.trim()!==node.__hehkuFi)node.nodeValue=current.replace(trimmed,translated);else if(lang==='fi'&&current.trim()!==node.__hehkuFi)node.nodeValue=current.replace(trimmed,node.__hehkuFi)}}
+const translatedNodes=new WeakMap();
+let translateTimer=0;
+function translatePage(){
+ const lang=language();document.documentElement.lang=lang;
+ if(!document.body)return;
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+ const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+ for(const node of nodes){
+  const p=node.parentElement;
+  if(!p||p.closest('script,style,svg,textarea,option,[contenteditable="true"],[data-no-translate]'))continue;
+  const current=node.nodeValue,trimmed=current.trim();if(!trimmed)continue;
+  let state=translatedNodes.get(node);
+  if(!state||current!==state.rendered){state={source:trimmed,rendered:current};}
+  const translated=translate(state.source,lang);
+  const next=current.replace(trimmed,translated);
+  state.rendered=next;translatedNodes.set(node,state);
+  if(next!==current)node.nodeValue=next;
+ }
+}
+function scheduleTranslate(){clearTimeout(translateTimer);translateTimer=setTimeout(translatePage,25)}
+function startObserver(){if(!document.body)return;const observer=new MutationObserver(changes=>{
+ if(changes.some(change=>change.type==='childList'||(change.type==='characterData'&&(!translatedNodes.has(change.target)||change.target.nodeValue!==translatedNodes.get(change.target).rendered))))scheduleTranslate();
+ });observer.observe(document.body,{subtree:true,childList:true,characterData:true});translatePage();}
 w.HEHKULang={language,setLanguage,localized,translate,translatePage,supported};
-document.addEventListener('hehku:language',()=>setTimeout(translatePage,0));document.addEventListener('DOMContentLoaded',translatePage);
+document.addEventListener('hehku:language',scheduleTranslate);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startObserver);else startObserver();
 document.documentElement.lang=language();
 })(window);
