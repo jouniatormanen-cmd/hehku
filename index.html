@@ -350,6 +350,9 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
 .approved-home .hotspot-cart{overflow:visible!important}
 .approved-home .hero-cart-live-count{position:absolute;top:1%;right:-3%;display:flex;align-items:center;justify-content:center;width:29%;aspect-ratio:1;border-radius:50%;background:#6b214b;color:#fff;font:700 clamp(10px,1.55vw,17px)/1 Arial,sans-serif;box-shadow:0 0 0 2px #f4d8bd;z-index:5;pointer-events:none}
 
+/* Hide the baked-in zero on the approved hero image; show a live badge only for nonempty carts. */
+.approved-home .hotspot-cart::before{content:"";position:absolute;z-index:4;right:-7%;top:-8%;width:44%;aspect-ratio:1;border-radius:50%;background:#2b1023;pointer-events:none}
+.approved-home .hero-cart-live-count:empty,.approved-home .hero-cart-live-count[data-empty="true"]{display:none!important}
 /* HEHKU: ensure the slide-out navigation remains readable at all viewport widths. */
 .approved-menu-drawer{box-sizing:border-box!important;width:min(94vw,420px)!important;max-width:calc(100vw - 8px)!important;overflow-x:hidden!important;overflow-y:auto!important;}
 .approved-menu-drawer>a{box-sizing:border-box;min-width:0;max-width:100%;white-space:normal!important;overflow-wrap:anywhere;word-break:normal;flex-shrink:0;}
@@ -376,7 +379,7 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
         }
       }
     }catch(e){}
-    const heroBadge=document.getElementById('hero-cart-live-count');if(heroBadge)heroBadge.textContent=String(qty);
+    const heroBadge=document.getElementById('hero-cart-live-count');if(heroBadge){heroBadge.textContent=qty?String(qty):'';heroBadge.dataset.empty=String(qty===0)}
     for(const id of ['header-cart-count','mobile-cart-count']){
       const el=document.getElementById(id);
       if(el){el.textContent=qty?String(qty):'';el.hidden=qty===0;}
@@ -431,6 +434,6 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
 
 <script>
 /* One source of truth: the visible basket count. */
-(()=>{const count=document.getElementById('cart-count');if(!count)return;function sync(){const n=Math.max(0,Number((count.textContent||'').replace(/[^0-9]/g,''))||0);const heroBadge=document.getElementById('hero-cart-live-count');if(heroBadge)heroBadge.textContent=String(n);for(const id of ['header-cart-count','mobile-cart-count']){const badge=document.getElementById(id);if(badge){badge.textContent=String(n);badge.hidden=n===0;badge.toggleAttribute('hidden',n===0)}}for(const selector of ['.header-cart','.mobile-cart']){const link=document.querySelector(selector);if(link)link.setAttribute('aria-label','Siirry ostoskoriin, '+n+' tuotetta')}}new MutationObserver(sync).observe(count,{childList:true,characterData:true,subtree:true});sync();})();
+(()=>{const count=document.getElementById('cart-count');if(!count)return;function sync(){const n=Math.max(0,Number((count.textContent||'').replace(/[^0-9]/g,''))||0);const heroBadge=document.getElementById('hero-cart-live-count');if(heroBadge){heroBadge.textContent=n?String(n):'';heroBadge.dataset.empty=String(n===0)}for(const id of ['header-cart-count','mobile-cart-count']){const badge=document.getElementById(id);if(badge){badge.textContent=String(n);badge.hidden=n===0;badge.toggleAttribute('hidden',n===0)}}for(const selector of ['.header-cart','.mobile-cart']){const link=document.querySelector(selector);if(link)link.setAttribute('aria-label','Siirry ostoskoriin, '+n+' tuotetta')}}new MutationObserver(sync).observe(count,{childList:true,characterData:true,subtree:true});sync();})();
 </script>
 </body></html>
