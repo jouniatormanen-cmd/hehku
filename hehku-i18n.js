@@ -50,10 +50,21 @@ Object.assign(dictionary,{
 });
 function translate(text,lang=language()){if(lang==='fi')return text;const x=dictionary[String(text).trim()];return x?x[lang==='sv'?0:1]:text}
 const translatedNodes=new WeakMap();
+const translatedAttributes=new WeakMap();
+function translateAttributes(lang){
+ for(const el of document.querySelectorAll('[placeholder],[aria-label],[title]')){
+  if(el.closest('script,style,[data-no-translate]'))continue;
+  let original=translatedAttributes.get(el);
+  if(!original){original={};for(const attr of ['placeholder','aria-label','title'])if(el.hasAttribute(attr))original[attr]=el.getAttribute(attr);translatedAttributes.set(el,original)}
+  for(const [attr,value] of Object.entries(original)){const result=translate(value,lang);if(el.getAttribute(attr)!==result)el.setAttribute(attr,result)}
+ }
+}
+
 let translateTimer=0;
 function translatePage(){
  const lang=language();document.documentElement.lang=lang;
  if(!document.body)return;
+ translateAttributes(lang);
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
  for(const node of nodes){
