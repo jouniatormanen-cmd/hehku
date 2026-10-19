@@ -421,6 +421,24 @@ body>header,body>.approved-demo-disclaimer+ .approved-shop-intro+header{display:
  #hehku-top-a-menu{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:104px;padding:10px 13px!important;border:2px solid #edc98a!important;border-radius:12px;background:#4b2040!important;color:#ffe1a5!important;font-size:15px!important;font-weight:800!important;box-shadow:0 0 14px #edc98a33}
  #hehku-top-a-menu:focus-visible{outline:3px solid #fff;outline-offset:3px}
 }
+
+/* Phone-first compact header: menu / logo / cart, language and search below. */
+@media(max-width:720px){
+ .hehku-top-a{padding:9px 12px!important}
+ .hehku-top-a-main{display:grid!important;grid-template-columns:52px minmax(0,1fr) 56px;grid-template-areas:"menu logo cart" "lang lang lang" "search search search";align-items:center;gap:9px 5px!important}
+ .hehku-top-a-brand{grid-area:logo;justify-self:center;font-size:clamp(22px,7vw,29px)!important;letter-spacing:.12em;white-space:nowrap}
+ .hehku-top-a-actions{display:contents!important}
+ #hehku-top-a-account{display:none!important}
+ #hehku-top-a-menu{grid-area:menu;justify-self:start;display:flex!important;align-items:center;justify-content:center;min-width:46px!important;width:46px;height:46px;min-height:46px!important;padding:0!important;border:1px solid #edc98a80!important;border-radius:11px;background:#44203b!important;color:#ffe3af!important;font-size:0!important;box-shadow:none!important}
+ #hehku-top-a-menu::before{content:"☰";font-size:27px;line-height:1}
+ #hehku-top-a-cart{grid-area:cart;justify-self:end;position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:46px;padding:0!important;font-size:0!important}
+ #hehku-top-a-cart [data-hehku-cart-label]{font-size:0!important}
+ #hehku-top-a-cart [data-hehku-cart-label]::before{content:"🛒";font-size:25px}
+ #hehku-top-a-qty{position:absolute;top:-2px;right:-4px;margin:0;font-size:11px}
+ .hehku-top-a .hehku-language{grid-area:lang;justify-self:center;margin:0!important}
+ .hehku-top-a-search{grid-area:search;order:unset;flex-basis:auto;min-width:0;width:100%;max-width:none;height:42px}
+ .hehku-top-a-categories{display:none!important}
+}
 </style><script src="hehku-i18n.js?v=20261019b" defer></script></head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
