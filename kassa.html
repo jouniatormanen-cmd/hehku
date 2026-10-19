@@ -53,7 +53,7 @@ function render(){
  button.disabled=count===0;confirmation.classList.remove('visible');
 }
 document.querySelectorAll('input[name="shipping"]').forEach(input=>input.addEventListener('change',render));
-button.addEventListener('click',()=>{if(!count)return;document.getElementById('confirm-details').textContent=count+' tuotetta · Yhteensä '+money(total)+' (testisumma).';confirmation.classList.add('visible');confirmation.scrollIntoView({behavior:'smooth',block:'nearest'})});
+button.addEventListener('click',()=>{if(!count)return;const lang=window.HEHKULang?.language()||document.documentElement.lang||'fi';const labels={fi:{items:'tuotetta',total:'Yhteensä',demo:'(testisumma).'},sv:{items:'produkter',total:'Totalt',demo:'(testbelopp).'},en:{items:'items',total:'Total',demo:'(demo amount).'}};const t=labels[lang]||labels.fi;document.getElementById('confirm-details').textContent=count+' '+t.items+' · '+t.total+' '+money(total)+' '+t.demo;confirmation.classList.add('visible');confirmation.scrollIntoView({behavior:'smooth',block:'nearest'})});
 load();render();
 document.addEventListener('hehku:language',render);document.addEventListener('hehku:languagechange',render);
 window.addEventListener('pageshow',()=>{cart={};load();render()});
