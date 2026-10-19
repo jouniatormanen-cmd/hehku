@@ -48,7 +48,7 @@ Object.assign(dictionary,{
 "Ostamisen kulku on käyty läpi. Tämä ei ole tilausvahvistus eikä oikeaa tilausta ole tehty.":["Köpflödet har gåtts igenom. Detta är ingen orderbekräftelse och ingen riktig beställning har gjorts.","The purchase flow has been demonstrated. This is not an order confirmation and no real order has been placed."],
 "HEHKU · Testikassa · Ei oikeita tilauksia tai maksuja":["HEHKU · Testkassa · Inga riktiga beställningar eller betalningar","HEHKU · Demo checkout · No real orders or payments"]
 });
-function translate(text,lang=language()){if(lang==='fi')return text;const raw=String(text),trimmed=raw.trim();const x=dictionary[trimmed];if(x)return x[lang==='sv'?0:1];const match=trimmed.match(/^(←\\s*|✓\\s*|\\d+\\s*·\\s*)(.*?)(\\s*→)?$/);if(match&&match[2]!==trimmed){const inner=dictionary[match[2]];if(inner)return (match[1]||'')+inner[lang==='sv'?0:1]+(match[3]||'')}return text}
+function translate(text,lang=language()){if(lang==='fi')return text;const raw=String(text),trimmed=raw.trim();const x=dictionary[trimmed];if(x)return x[lang==='sv'?0:1];const match=trimmed.match(/^(←\s*|✓\s*|\d+\s*·\s*)(.*?)(\s*→)?$/);if(match&&match[2]!==trimmed){const inner=dictionary[match[2]];if(inner)return (match[1]||'')+inner[lang==='sv'?0:1]+(match[3]||'')}return text}
 const translatedNodes=new WeakMap();
 const translatedAttributes=new WeakMap();
 function translateAttributes(lang){
