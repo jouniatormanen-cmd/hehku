@@ -480,6 +480,22 @@ body>header,body>.approved-demo-disclaimer+ .approved-shop-intro+header{display:
  .hehku-top-a-search{height:40px!important;box-shadow:none!important;border-color:#edc98a80!important}
  .hehku-top-a-search input{font-size:14px!important;padding:8px 12px!important}
 }
+
+/* Two-row mobile header trial: menu / small wordmark / basket, then search + languages. */
+@media(max-width:720px){
+ .hehku-top-a{padding:11px 12px!important;background:linear-gradient(110deg,#241124,#3b1b3a)!important;border-bottom:1px solid #b88d68!important}
+ .hehku-top-a-main{display:grid!important;grid-template-columns:44px minmax(0,1fr) auto!important;grid-template-areas:"menu logo cart" "search search lang"!important;column-gap:9px!important;row-gap:10px!important}
+ .hehku-top-a-brand{grid-area:logo!important;justify-self:center!important;font-size:17px!important;letter-spacing:.14em!important}
+ .hehku-top-a-actions{display:contents!important}
+ #hehku-top-a-menu{grid-area:menu!important;justify-self:start!important}
+ #hehku-top-a-cart{grid-area:cart!important;justify-self:end!important;display:flex!important;align-items:center!important;gap:3px!important;width:auto!important;min-width:58px!important;height:40px!important;padding:0 8px!important;text-decoration:none!important}
+ #hehku-top-a-cart [data-hehku-cart-label]{font-size:0!important}
+ #hehku-top-a-cart [data-hehku-cart-label]::before{content:"🛒"!important;font-size:22px!important}
+ #hehku-top-a-qty{position:static!important;margin:0!important;font-size:12px!important;min-width:14px}
+ .hehku-top-a-search{grid-area:search!important;min-width:0!important;width:100%!important;height:42px!important;margin:0!important;border-radius:11px!important}
+ .hehku-top-a .hehku-language{grid-area:lang!important;justify-self:end!important;display:flex!important;gap:1px!important;margin:0!important;white-space:nowrap!important}
+ .hehku-top-a .hehku-language button{min-width:29px!important;min-height:36px!important;padding:4px 3px!important;font-size:11px!important}
+}
 </style><script src="hehku-i18n.js?v=20261019b" defer></script></head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
