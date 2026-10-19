@@ -518,4 +518,14 @@ body>header,body>.approved-demo-disclaimer+ .approved-shop-intro+header{display:
 /* Concept A uses the existing cart as its single source of truth. */
 (()=>{const out=document.getElementById('hehku-top-a-qty'),source=document.getElementById('cart-count');if(out&&source){const sync=()=>{const qty=Math.max(0,Number((source.textContent||'').replace(/[^0-9]/g,''))||0);out.textContent=String(qty);out.dataset.empty=String(qty===0)};new MutationObserver(sync).observe(source,{childList:true,characterData:true,subtree:true});sync();window.addEventListener('pageshow',sync)}document.getElementById('hehku-top-a-account')?.addEventListener('click',()=>document.getElementById('approved-account-open')?.click());document.getElementById('hehku-top-a-menu')?.addEventListener('click',()=>document.getElementById('approved-menu-open')?.click());})();
 </script>
+<script>
+/* Keep both mobile navigation Home links translated on language changes. */
+(function(){
+ const selectors=['.approved-menu-drawer a[href="#alku-kuva"]','.mobile-home-link'];
+ function update(){let lang=document.documentElement.lang||'fi';try{lang=window.HEHKULang?.language?.()||lang}catch(e){}const label=lang==='sv'?'Startsida':lang==='en'?'Home':'Etusivu';selectors.forEach(selector=>document.querySelectorAll(selector).forEach(a=>a.textContent=label))}
+ document.addEventListener('hehku:languagechange',update);
+ document.addEventListener('hehku:language',update);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update);else update();
+})();
+</script>
 </body></html>
