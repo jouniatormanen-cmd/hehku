@@ -413,7 +413,19 @@ body>header,body>.approved-demo-disclaimer+ .approved-shop-intro+header{display:
 /* Show the header cart count bubble only when at least one item is present. */
 #hehku-top-a-qty:empty,#hehku-top-a-qty[data-empty="true"]{display:none!important}
 
- .demo-art:has(img){padding:0;overflow:hidden;display:block}.demo-art img{width:100%;height:100%;object-fit:cover}</style><style id="hehku-lang-style">.hehku-language{position:relative;margin:8px auto 10px;max-width:max-content;z-index:30;display:flex;gap:3px;background:#241124e8;padding:4px 6px;border:1px solid #edc98a99;border-radius:18px}.hehku-language button{font:700 11px system-ui,sans-serif;color:#fff;background:transparent;border:0;border-radius:12px;padding:4px 5px;cursor:pointer}.hehku-language button[aria-pressed="true"]{background:#edc98a;color:#241124}@media(max-width:600px){.hehku-language{margin:6px auto 8px}.hehku-language button{font-size:10px;padding:3px}}
+ .demo-art:has(img){padding:0;overflow:hidden;display:block}.demo-art img{width:100%;height:100%;object-fit:cover}
+/* Mobile: discreet product-card action; desktop styling unchanged */
+@media(max-width:720px){
+ #valikoima .demo-card button.cart-add{
+  width:auto!important;max-width:calc(100% - 24px);
+  align-self:flex-start;display:inline-flex;justify-content:center;align-items:center;
+  min-height:36px!important;height:auto!important;
+  margin:4px 12px 12px!important;padding:7px 11px!important;
+  font-size:11px!important;line-height:1.2!important;font-weight:750;
+  border-radius:9px!important;letter-spacing:0;
+ }
+}
+</style><style id="hehku-lang-style">.hehku-language{position:relative;margin:8px auto 10px;max-width:max-content;z-index:30;display:flex;gap:3px;background:#241124e8;padding:4px 6px;border:1px solid #edc98a99;border-radius:18px}.hehku-language button{font:700 11px system-ui,sans-serif;color:#fff;background:transparent;border:0;border-radius:12px;padding:4px 5px;cursor:pointer}.hehku-language button[aria-pressed="true"]{background:#edc98a;color:#241124}@media(max-width:600px){.hehku-language{margin:6px auto 8px}.hehku-language button{font-size:10px;padding:3px}}
 /* Mobile: one prominent hamburger instead of a long horizontal category strip. */
 @media(max-width:720px){
  .hehku-top-a-categories{display:none!important}
