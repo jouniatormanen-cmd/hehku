@@ -16,7 +16,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": false,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Skonsam massageapparat för egen avkoppling.",
+      "kuvaus_en": "Gentle massage device for personal relaxation.",
+      "nosto_sv": "Mjuk start",
+      "nosto_en": "Gentle start"
     },
     {
       "id": "1",
@@ -32,7 +36,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": false,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Kompakt välbefinnandeapparat för en egen stund.",
+      "kuvaus_en": "Compact wellness device for personal time.",
+      "nosto_sv": "Populärt val",
+      "nosto_en": "Popular choice"
     },
     {
       "id": "2",
@@ -48,7 +56,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": false,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Demoprodukt för intimt välbefinnande avsedd för män.",
+      "kuvaus_en": "Demo intimate wellness product designed for men.",
+      "nosto_sv": "En stund för dig själv",
+      "nosto_en": "Time for yourself"
     },
     {
       "id": "3",
@@ -64,7 +76,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": false,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Demoprodukt för gemensamma stunder.",
+      "kuvaus_en": "Demo product designed for couples.",
+      "nosto_sv": "Tillsammans",
+      "nosto_en": "Together"
     },
     {
       "id": "4",
@@ -80,7 +96,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": false,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Vattenbaserat glidmedel, fiktiv demoprodukt.",
+      "kuvaus_en": "Water-based lubricant, fictional demo product.",
+      "nosto_sv": "Välbefinnande",
+      "nosto_en": "Wellness"
     },
     {
       "id": "5",
@@ -96,7 +116,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": false,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Elegant välbefinnandeapparat i premiumserien.",
+      "kuvaus_en": "Elegant wellness device from the premium collection.",
+      "nosto_sv": "HEHKU INTIME",
+      "nosto_en": "HEHKU INTIME"
     },
     {
       "id": "6",
@@ -112,7 +136,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": true,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Fiktiv välbefinnandeprodukt för lugna stunder av avkoppling.",
+      "kuvaus_en": "Fictional wellness product for relaxing moments.",
+      "nosto_sv": "Ny demoprodukt",
+      "nosto_en": "New demo product"
     },
     {
       "id": "7",
@@ -128,7 +156,11 @@
       "saatavuus": "ei myynnissä",
       "kuva_url": null,
       "uutuus": true,
-      "tarjouksessa": false
+      "tarjouksessa": false,
+      "kuvaus_sv": "Fiktiv parprodukt för gemensamma välbefinnandestunder.",
+      "kuvaus_en": "Fictional couples' product for shared wellness moments.",
+      "nosto_sv": "Ny demoprodukt",
+      "nosto_en": "New demo product"
     }
   ]
 }
