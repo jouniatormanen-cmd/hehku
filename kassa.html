@@ -34,7 +34,7 @@ function render(){
   const [name,price]=products[i];count+=qty;subtotal+=qty*price;
   const row=document.createElement('div');row.className='item';
   const info=document.createElement('div');const title=document.createElement('div');title.className='item-name';title.textContent=name;
-  const details=document.createElement('div');details.className='muted';details.textContent=money(price)+' / kpl · '+money(price*qty);info.append(title,details);
+  const details=document.createElement('div');details.className='muted';const lang=window.HEHKULang?.language()||document.documentElement.lang||'fi';const unit=({fi:'kpl',sv:'st.',en:'pc'})[lang]||'kpl';details.textContent=money(price)+' / '+unit+' · '+money(price*qty);info.append(title,details);
   const controls=document.createElement('div');controls.className='controls';
   for(const [label,delta] of [['−',-1],['+',1]]){
    const b=document.createElement('button');b.type='button';b.textContent=label;b.disabled=delta>0&&qty>=99;
@@ -55,6 +55,7 @@ function render(){
 document.querySelectorAll('input[name="shipping"]').forEach(input=>input.addEventListener('change',render));
 button.addEventListener('click',()=>{if(!count)return;document.getElementById('confirm-details').textContent=count+' tuotetta · Yhteensä '+money(total)+' (testisumma).';confirmation.classList.add('visible');confirmation.scrollIntoView({behavior:'smooth',block:'nearest'})});
 load();render();
+document.addEventListener('hehku:language',render);document.addEventListener('hehku:languagechange',render);
 window.addEventListener('pageshow',()=>{cart={};load();render()});
 fetch('data/tuotteet.json?v=hehku-kassa-201026b',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(data=>{for(const p of data.tuotteet||[]){const id=Number(p.id),price=Number(p.hinta_eur);if(Number.isInteger(id)&&id>=0&&id<products.length&&p.on_demo===true&&Number.isFinite(price)&&price>=0)products[id]=[String(p.nimi),price]}render()}).catch(e=>console.warn('HEHKU: käytetään varatuotetietoja',e));
 })();
