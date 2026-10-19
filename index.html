@@ -351,7 +351,7 @@ body{background:#210818;color:#f8e4ec}header,.hero,.hehku-finder,#valikoima>.wra
 .approved-home .hero-cart-live-count{position:absolute;top:1%;right:-3%;display:flex;align-items:center;justify-content:center;width:29%;aspect-ratio:1;border-radius:50%;background:#6b214b;color:#fff;font:700 clamp(10px,1.55vw,17px)/1 Arial,sans-serif;box-shadow:0 0 0 2px #f4d8bd;z-index:5;pointer-events:none}
 
 /* Hide the baked-in zero on the approved hero image; show a live badge only for nonempty carts. */
-.approved-home .hotspot-cart::before{content:"";position:absolute;z-index:4;left:76%;top:23%;width:68%;height:48%;border-radius:0;background:#2b0d20;pointer-events:none}
+.approved-home .hotspot-cart::before{content:none!important;display:none!important}
 .approved-home .hero-cart-live-count:empty,.approved-home .hero-cart-live-count[data-empty="true"]{display:none!important}
 /* HEHKU: ensure the slide-out navigation remains readable at all viewport widths. */
 .approved-menu-drawer{box-sizing:border-box!important;width:min(94vw,420px)!important;max-width:calc(100vw - 8px)!important;overflow-x:hidden!important;overflow-y:auto!important;}
