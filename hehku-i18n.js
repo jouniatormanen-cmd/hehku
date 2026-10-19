@@ -28,6 +28,17 @@ Object.assign(dictionary,{
 "Enintään 100 €":["Högst 100 €","Up to €100"],
 "Esim. Hehku, pari, hyvinvointi…":["T.ex. Hehku, par, välbefinnande…","E.g. Hehku, couples, wellness…"]
 });
+Object.assign(dictionary,{
+"Poista":["Ta bort","Remove"],
+"tuotetta":["produkter","products"],
+"(testisumma).":["(testsumma).","(demo total)."],
+"Ostoskori on tyhjä. Lisää ensin esimerkkituote valikoimasta.":["Varukorgen är tom. Lägg först till en demoprodukt från sortimentet.","Your cart is empty. Add a demo product from the catalog first."],
+"Tämä on kuvitteellinen esimerkkituote.":["Detta är en fiktiv demoprodukt.","This is a fictional demo product."],
+"lisätty testikoriin.":["har lagts till i demovarukorgen.","added to the demo cart."],
+"Havainnekuva. Oikeat tuotekuvat lisätään myöhemmin.":["Illustrationsbild. Riktiga produktbilder läggs till senare.","Illustration. Actual product images will be added later."],
+"Havainnollinen yksityiskohtanäkymä, ei oikea tuotekuva.":["Illustrativ detaljvy, inte en riktig produktbild.","Illustrative detail view, not an actual product image."],
+"Havainnollinen pakkausnäkymä, ei oikea pakkauskuva.":["Illustrativ förpackningsvy, inte en riktig förpackningsbild.","Illustrative packaging view, not an actual packaging photo."]
+});
 function translate(text,lang=language()){if(lang==='fi')return text;const x=dictionary[String(text).trim()];return x?x[lang==='sv'?0:1]:text}
 const translatedNodes=new WeakMap();
 let translateTimer=0;
