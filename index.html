@@ -608,7 +608,20 @@ body{background:#210818!important;color:#f8e4ec}
 .forum-preview-card{min-width:0;padding:20px}
 }
 </style>
-<style>@media(max-width:720px){.hehku-top-a-actions .hehku-discuss-invite #hehku-top-discuss{font-size:12px;padding:6px 12px;gap:5px;min-height:44px}.hehku-top-a-main .hehku-discuss-invite{gap:3px;padding:2px 0 8px}.hehku-discuss-caption{font-size:11px}}</style></head><body>
+<style>@media(max-width:720px){.hehku-top-a-actions .hehku-discuss-invite #hehku-top-discuss{font-size:12px;padding:6px 12px;gap:5px;min-height:44px}.hehku-top-a-main .hehku-discuss-invite{gap:3px;padding:2px 0 8px}.hehku-discuss-caption{font-size:11px}}</style><style>
+@media(max-width:720px){
+.hehku-top-a-main .hehku-discuss-invite{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:0 0 4px;margin:0}
+.hehku-discuss-caption{flex:0 1 auto;font-size:11px;line-height:1.2;white-space:nowrap;letter-spacing:0}
+.hehku-top-a-actions .hehku-discuss-invite #hehku-top-discuss{flex:0 1 auto;min-width:0;min-height:36px;font-size:11px;padding:6px 9px;gap:4px;line-height:1.2;white-space:nowrap}
+.hehku-top-a-main{row-gap:6px!important}
+}
+@media(max-width:350px){
+.hehku-top-a-main .hehku-discuss-invite{gap:4px}
+.hehku-discuss-caption{font-size:10px}
+.hehku-top-a-actions .hehku-discuss-invite #hehku-top-discuss{font-size:10px;padding-inline:7px}
+.hehku-top-discuss span[aria-hidden]{display:none}
+}
+</style></head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
 (function(){
