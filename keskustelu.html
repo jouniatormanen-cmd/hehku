@@ -1,10 +1,45 @@
 <!doctype html>
-<html lang="fi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Keskustele | HEHKU</title>
+<html lang="fi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#302530"><title>Kuumat puheenaiheet | HEHKU</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#eee8e6;color:#302b32;font:17px/1.6 system-ui,sans-serif}header{background:#302530;color:#f5d2b2;padding:20px max(20px,calc((100vw - 900px)/2))}a{color:inherit}main{max-width:900px;margin:auto;padding:32px 20px 70px}h1{font-size:clamp(32px,6vw,48px);line-height:1.15}form,article,.intro{background:#fffaf7;border:1px solid #cdbab9;border-radius:18px;padding:24px;margin:20px 0}label{display:block;font-weight:700;margin-top:18px}input,textarea{display:block;width:100%;font:inherit;padding:12px;border:1px solid #8d7884;border-radius:8px;background:white;color:#302b32}textarea{min-height:160px;resize:vertical}button{font:inherit;font-weight:700;border:0;border-radius:24px;background:#52384d;color:white;padding:12px 22px;cursor:pointer;margin-top:16px}button:disabled{opacity:.6;cursor:wait}button:focus-visible,a:focus-visible{outline:3px solid #a96e45;outline-offset:4px}small{color:#655661}article p{white-space:pre-wrap;overflow-wrap:anywhere}article button{background:transparent;color:#623e53;border:1px solid #a88b9a;padding:7px 14px;font-size:14px}#feedback{font-weight:650}#feedback:empty{display:none}.trap{display:none}h2{margin-top:36px}
+
+/* HEHKU discussion styling */
+:root{color-scheme:light}
+body{background:linear-gradient(145deg,#f1ecef,#e7dfe5);color:#362c37;font-size:16px}
+header{background:#2e2330;border-bottom:1px solid #d6a47a55;padding-block:17px}
+header a{color:#f3d6b5;text-decoration:none;font-size:14px;font-weight:650}
+main{max-width:940px;padding-top:28px}
+.forum-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 90% 5%,#a6447344,transparent 65%),linear-gradient(125deg,#302530,#503347);color:#fff8fc;padding:40px;border:1px solid #735369;border-radius:24px;box-shadow:0 14px 35px #38203718}
+.forum-eyebrow{color:#efc8a4;text-transform:uppercase;font-size:11px;font-weight:750;letter-spacing:.15em;margin:0 0 15px}
+h1{font-size:clamp(34px,6vw,54px);letter-spacing:-.035em;margin:0 0 18px;line-height:1.1}
+.forum-lead{max-width:630px;color:#f1dfe9;font-size:18px;line-height:1.65;margin:0 0 22px}
+.write-link{display:inline-block;color:#ffc4dd;text-decoration:none;font-weight:700;font-size:14px}
+.write-link:hover{text-decoration:underline}
+form,article,.intro{background:#fffafc;border-color:#dacbd6;border-radius:20px;box-shadow:0 6px 20px #38203708}
+.intro{background:#f6f0f4;box-shadow:none;padding:22px 26px;font-size:14px;color:#665462;border-left:3px solid #b84272}
+.intro p{margin:0 0 10px}.intro small{font-size:12px;color:#705f6b;display:block}
+form{padding:30px;scroll-margin-top:20px}
+h2{font-size:25px;line-height:1.25;letter-spacing:-.02em;color:#503347}
+label{font-size:14px;margin-top:20px}
+input,textarea{border-color:#c4afbf;border-radius:12px;padding:12px 14px;margin-top:6px;color:#362c37}
+input:focus,textarea:focus{outline:2px solid #b84272;outline-offset:2px;border-color:#b84272}
+#body-help{display:block;margin-top:7px;font-size:12px}
+button{background:#b84272;border:1px solid #b84272;min-height:44px;border-radius:999px;font-size:14px;padding:10px 20px}
+button:hover:not(:disabled){background:#9f315f}
+#refresh,#more{background:#fffafc;color:#753754;border-color:#c9a4b7}
+#refresh:hover:not(:disabled),#more:hover:not(:disabled){background:#f5e4ed}
+article{padding:26px;overflow-wrap:anywhere}
+article strong{color:#65334f;font-size:16px}
+article small{font-size:12px;color:#7a6875}
+article p{line-height:1.75;margin:15px 0}
+article button{font-size:12px;background:transparent;border-color:#d7c2cf;color:#7a586c;margin-top:2px}
+article button:hover:not(:disabled){background:#f7eaf1}
+#feedback{color:#753754;margin-bottom:0}
+#list-status{font-size:14px;color:#705f6b}
+@media(max-width:600px){main{padding:18px 16px 48px}.forum-hero{padding:27px 22px;border-radius:20px}.forum-lead{font-size:16px}.forum-eyebrow{font-size:10px;letter-spacing:.1em}.intro{padding:18px 20px}form{padding:22px 20px}article{padding:21px 20px}article small{display:block;margin-top:4px}h2{font-size:23px}#send{width:100%}}
 </style></head><body><header><a href="index.html">← HEHKUn etusivulle</a></header><main>
-<p>HEHKU · Kuumat puheenaiheet</p><h1>Puhutaan siitäkin.</h1>
-<div class="intro"><p>Nautinto, halut ja kaikki, mitä olet miettinyt muttet vielä kysynyt. Kysy rohkeasti tai jaa kokemuksesi.</p><p>Keskustellaan kunnioittavasti ja annetaan tilaa erilaisille kokemuksille.</p><p>Voit lähettää viestin ilman rekisteröitymistä. Nimimerkki on vapaaehtoinen. Ylläpito tarkistaa viestit ennen julkaisua, joten uusi viesti ei näy heti.</p><small>Älä julkaise henkilötietoja, yhteystietoja tai muiden yksityisiä asioita. Kirjoita vain sellaista, jonka haluat näkyvän julkisesti. Palsta on tarkoitettu täysi-ikäisille.</small></div>
+<div class="forum-hero"><p class="forum-eyebrow">HEHKU · Kuumat puheenaiheet</p><h1>Puhutaan siitäkin.</h1><p class="forum-lead">Nautinto, halut ja kaikki, mitä olet miettinyt muttet vielä kysynyt. Kysy rohkeasti tai jaa kokemuksesi.</p><a class="write-link" href="#message-form">Kirjoita oma viesti ↓</a></div>
+<div class="intro"><p>Keskustellaan kunnioittavasti ja annetaan tilaa erilaisille kokemuksille.</p><p>Voit lähettää viestin ilman rekisteröitymistä. Nimimerkki on vapaaehtoinen. Ylläpito tarkistaa viestit ennen julkaisua, joten uusi viesti ei näy heti.</p><small>Älä julkaise henkilötietoja, yhteystietoja tai muiden yksityisiä asioita. Kirjoita vain sellaista, jonka haluat näkyvän julkisesti. Palsta on tarkoitettu täysi-ikäisille.</small></div>
 <form id="message-form"><h2 style="margin-top:0">Kirjoita viesti</h2>
 <label for="nickname">Nimimerkki (valinnainen)</label><input id="nickname" name="nickname" maxlength="40" autocomplete="off">
 <label for="body">Viesti</label><textarea id="body" name="body" required minlength="3" maxlength="2000" aria-describedby="body-help"></textarea><small id="body-help">3–2 000 merkkiä. Kaikki viestit tarkistetaan ennen julkaisua.</small>
