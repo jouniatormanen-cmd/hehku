@@ -596,7 +596,19 @@ body{background:#210818!important;color:#f8e4ec}
 </style>
 <style>
 @media(min-width:721px){.hehku-top-a-main>#hehku-top-a-menu{font:inherit;font-size:13px;font-weight:600;color:#fff;background:transparent;border:0;cursor:pointer;padding:7px 5px;margin-left:8px;white-space:nowrap}.hehku-top-a-main>#hehku-top-a-menu:hover{color:#edc98a}.hehku-top-a-main>#hehku-top-a-menu:focus-visible{outline:3px solid white;outline-offset:3px}}
-</style></head><body>
+</style>
+<style>
+/* Mobile discussion invitation: a centered row with breathing room. */
+@media(max-width:720px){
+.hehku-top-a-main .hehku-discuss-invite{grid-area:discuss;justify-self:stretch;align-self:center;align-items:center;justify-content:center;width:100%;max-width:100%;margin:0;padding:4px 0 12px;gap:6px}
+.hehku-top-a-actions .hehku-discuss-invite #hehku-top-discuss{min-height:44px;max-width:100%;padding:10px 16px;white-space:normal;text-align:center;line-height:1.35}
+.hehku-discuss-caption{font-size:12px}
+.forum-preview{padding:36px 20px}
+.forum-preview-grid{grid-template-columns:minmax(0,1fr);gap:14px}
+.forum-preview-card{min-width:0;padding:20px}
+}
+</style>
+</head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
 (function(){
