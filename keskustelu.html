@@ -84,7 +84,7 @@ article .report-button{display:block;margin-top:12px}
 <label for="nickname">Nimimerkki (valinnainen)</label><input id="nickname" name="nickname" maxlength="40" autocomplete="off">
 <label for="body">Viesti</label><textarea id="body" name="body" required minlength="3" maxlength="2000" aria-describedby="body-help"></textarea><small id="body-help">3–2 000 merkkiä. Kaikki viestit tarkistetaan ennen julkaisua.</small>
 <div class="trap" aria-hidden="true"><label>Jätä tyhjäksi<input name="website" tabindex="-1" autocomplete="off"></label></div>
-<br><button id="send" type="submit">Lähetä hyväksyttäväksi</button><p id="feedback" role="status" aria-live="polite"></p></form></main><script>
+<br><button id="send" type="submit">Lähetä hyväksyttäväksi</button><p id="feedback" role="status" aria-live="polite"></p></form><p style="margin-top:32px;font-size:12px;color:#75616f"><a href="yllapito.html">Ylläpidon kirjautuminen</a></p></main><script>
 (()=>{'use strict';
 const endpoint="https://xnaoxmlvtaosuanwfpyc.supabase.co/rest/v1/",key="sb_publishable_zOfLQizydkmwYx3CQ-PoGQ_ZhxFl1tt";
 const form=document.getElementById('message-form'),feedback=document.getElementById('feedback'),send=document.getElementById('send'),list=document.getElementById('messages'),status=document.getElementById('list-status'),refresh=document.getElementById('refresh'),more=document.getElementById('more');
