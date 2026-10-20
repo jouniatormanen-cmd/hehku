@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Keskustelun ylläpito | HEHKU</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f0e9ef;color:#362c37;font:16px/1.55 system-ui,sans-serif}header{background:#302530;color:#f3d6b5;padding:18px 24px}header a{color:inherit}main{max-width:920px;margin:auto;padding:28px 18px}h1{font-size:30px}h2{font-size:21px}form,article,.panel{background:#fffafc;border:1px solid #d8c7d4;border-radius:15px;padding:22px;margin:16px 0}form{max-width:460px}label{display:block;margin:14px 0 5px;font-weight:650}input{width:100%;padding:12px;border:1px solid #ac91a5;border-radius:8px;font:inherit}button,select{font:inherit;padding:10px 16px;border-radius:8px;border:1px solid #b84272}button{background:#b84272;color:white;cursor:pointer}button.secondary{background:white;color:#773d59}button:disabled{opacity:.6;cursor:wait}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #b84272;outline-offset:3px}.actions,.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.toolbar{justify-content:space-between}article p{white-space:pre-wrap;overflow-wrap:anywhere}small{color:#75616f}.context{background:#f3e8ef;border-left:3px solid #bd7898;padding:10px 14px;font-size:14px;margin:12px 0}.context a{color:#793957}.badge{display:inline-block;background:#f1d9e5;border-radius:20px;font-size:12px;padding:3px 9px}.status{min-height:25px}#login button{margin-top:18px}[hidden]{display:none!important}@media(max-width:550px){article,form,.panel{padding:17px}h1{font-size:25px}}
+</style></head><body>
+<header><a href="keskustelu.html">← Keskustelupalstalle</a></header><main>
+<h1>Keskustelun ylläpito</h1>
+<p id="notice" class="status" role="status" aria-live="polite"></p>
+<form id="login"><h2>Kirjaudu ylläpitäjänä</h2><p>Käytä HEHKU-projektiin luotua ylläpitotiliä.</p>
+<label for="email">Sähköposti</label><input id="email" type="email" autocomplete="username" required>
+<label for="password">Salasana</label><input id="password" type="password" autocomplete="current-password" required>
+<button id="login-button">Kirjaudu sisään</button></form>
+<section id="admin" hidden><div class="toolbar"><p id="identity"></p><button id="logout" class="secondary">Kirjaudu ulos</button></div>
+<div class="panel toolbar"><label for="filter">Näytä</label><select id="filter"><option value="pending">Hyväksyntää odottavat</option><option value="approved">Julkaistut</option><option value="rejected">Hylätyt ja piilotetut</option><option value="reports">Asiattomuusilmoitukset</option></select><button id="refresh" class="secondary">Päivitä lista</button></div>
+<p>Hyväksy julkaisee viestin. Hylkää tai Piilota poistaa sen julkisesta näkymästä. Piilotetun aloituksen vastaukset säilyvät tallessa.</p>
+<div id="items"></div><button id="more" class="secondary" hidden>Näytä lisää</button></section>
+</main><script>
+(()=>{'use strict';
+const base='https://xnaoxmlvtaosuanwfpyc.supabase.co',key='sb_publishable_zOfLQizydkmwYx3CQ-PoGQ_ZhxFl1tt';
+const $=id=>document.getElementById(id),notice=$('notice'),items=$('items');
+let session=null,offset=0,busy=false,epoch=0,refreshing=null;
+function say(t){notice.textContent=t}
+function lock(){epoch++;session=null;items.replaceChildren();$('admin').hidden=true;$('login').hidden=false;$('identity').textContent='';$('password').value=''}
+async function auth(path,payload,token){const r=await fetch(base+'/auth/v1/'+path,{method:'POST',headers:{apikey:key,'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(payload?{body:JSON.stringify(payload)}:{})});if(!r.ok)throw new Error('auth');return r.status===204?null:r.json()}
+async function token(){if(!session)throw new Error('signedout');if(Date.now()<session.expires-60000)return session.access_token;if(!refreshing){const current=session;refreshing=auth('token?grant_type=refresh_token',{refresh_token:current.refresh_token}).then(s=>{if(session!==current)throw new Error('signedout');session={...s,expires:Date.now()+s.expires_in*1000};return session.access_token}).finally(()=>{refreshing=null})}return refreshing}
+async function api(path,method='GET',data){let bearer;try{bearer=await token()}catch(e){lock();say('Istunto päättyi. Kirjaudu uudelleen.');throw e}
+const r=await fetch(base+'/rest/v1/'+path,{method,headers:{apikey:key,Authorization:'Bearer '+bearer,'Content-Type':'application/json',...(method==='PATCH'?{Prefer:'return=representation'}:{})},...(data!==undefined?{body:JSON.stringify(data)}:{})});
+if(!r.ok){if(r.status===401){lock();say('Istunto päättyi. Kirjaudu uudelleen.')}throw new Error('api')}return r.status===204?null:r.json()}
+function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
+async function findMessage(id){if(!id)return null;const rows=await api('hehku_forum_messages?select=*&id=eq.'+encodeURIComponent(id)+'&limit=1');return rows[0]||null}
+async function change(row,value,button){if(!session)return;const captured=epoch;button.disabled=true;try{
+const changed=await api('hehku_forum_messages?id=eq.'+encodeURIComponent(row.id),'PATCH',{status:value});if(!changed?.length)throw new Error('empty');if(captured!==epoch)return;say(value==='approved'?'Viesti hyväksytty ja julkaistu.':'Viesti hylätty tai piilotettu.');await load(true)
+}catch(e){if(captured===epoch)say('Muutos epäonnistui. Tarkista yhteys ja ylläpito-oikeudet.')}finally{button.disabled=false}}
+function render(row,root,target,report){
+const card=el('article'),name=el('strong',row.nickname||'Anonyymi'),date=el('small',' · '+new Date(row.created_at).toLocaleString('fi-FI'));card.append(name,date,el('p',row.body));
+card.append(el('span',({pending:'Odottaa hyväksyntää',approved:'Julkaistu',rejected:'Hylätty / piilotettu'})[row.status]||row.status,'badge'));
+const box=el('div',undefined,'context');
+if(row.parent_id){box.append(el('strong','Vastaus keskusteluun'));box.append(el('p',root?(root.nickname||'Anonyymi')+': '+root.body.slice(0,220):'Aloitusta ei löytynyt.'));
+if(target&&target.id!==root?.id)box.append(el('p','Vastaa nimimerkille '+target.nickname+': '+target.body.slice(0,160)));
+}else box.append(el('strong','Keskustelunaloitus'));
+const link=el('a','Avaa julkinen keskustelu ↗');link.href='keskustelu.html?ketju='+encodeURIComponent(row.parent_id||row.id);link.target='_blank';link.rel='noopener';box.append(link);card.append(box);
+if(report)card.append(el('p','Ilmoituksen syy: '+report.reason));
+const actions=el('div',undefined,'actions');for(const [label,value] of (row.status==='approved'?[['Piilota','rejected']]:[['Hyväksy','approved'],...(row.status==='pending'?[['Hylkää','rejected']]:[])])){
+const b=el('button',label,value==='approved'?'':'secondary');b.type='button';b.addEventListener('click',()=>change(row,value,b));if(value==='approved'&&row.parent_id&&root?.status!=='approved'){b.disabled=true;b.title='Hyväksy ensin keskustelunaloitus'}actions.append(b)}
+if(report){const b=el('button','Merkitse ilmoitus käsitellyksi','secondary');b.addEventListener('click',async()=>{b.disabled=true;try{await api('hehku_forum_reports?id=eq.'+encodeURIComponent(report.id),'DELETE');await load(true);say('Ilmoitus käsitelty.')}catch(e){say('Ilmoituksen käsittely epäonnistui.');b.disabled=false}});actions.append(b)}card.append(actions);return card}
+async function load(reset=true){if(busy||!session)return;busy=true;$('refresh').disabled=true;$('more').disabled=true;const captured=epoch,filter=$('filter').value,start=reset?0:offset;try{
+const reports=filter==='reports';const rows=await api((reports?'hehku_forum_reports?select=*':'hehku_forum_messages?select=*&status=eq.'+filter)+'&order=created_at.desc,id.desc&limit=30&offset='+start);
+const cards=[];for(const entry of rows){const row=reports?await findMessage(entry.message_id):entry;if(!row)continue;const root=row.parent_id?await findMessage(row.parent_id):null,target=row.reply_to_id?await findMessage(row.reply_to_id):null;cards.push(render(row,root,target,reports?entry:null))}
+if(captured!==epoch)return;if(reset)items.replaceChildren();items.append(...cards);offset=start+rows.length;$('more').hidden=rows.length<30;if(!offset)items.append(el('p',reports?'Ei käsittelemättömiä ilmoituksia.':'Ei viestejä tässä näkymässä.'));
+}catch(e){if(captured===epoch)say('Listan lataaminen epäonnistui. Kokeile Päivitä lista.')}finally{busy=false;$('refresh').disabled=false;$('more').disabled=false}}
+$('login').addEventListener('submit',async e=>{e.preventDefault();$('login-button').disabled=true;say('Kirjaudutaan…');try{const s=await auth('token?grant_type=password',{email:$('email').value.trim(),password:$('password').value});session={...s,expires:Date.now()+s.expires_in*1000};$('password').value='';const allowed=await api('rpc/hehku_is_forum_admin','POST',{});if(allowed!==true){lock();say('Tällä käyttäjällä ei ole keskustelun ylläpito-oikeutta.');return}epoch++;$('login').hidden=true;$('admin').hidden=false;$('identity').textContent=s.user.email;say('Kirjautuminen onnistui.');await load(true)}catch(e){lock();say('Kirjautuminen ei onnistunut. Tarkista HEHKU-ylläpitotilin sähköposti ja salasana.')}finally{$('login-button').disabled=false}});
+$('logout').addEventListener('click',async()=>{const previous=session;lock();say('Kirjauduttu ulos.');if(previous)try{await auth('logout',null,previous.access_token)}catch(e){}});
+$('refresh').addEventListener('click',()=>load(true));$('filter').addEventListener('change',()=>{if(busy){say('Odota listan latautumista ja paina Päivitä lista.');return}load(true)});$('more').addEventListener('click',()=>load(false));
+})();
+</script></body></html>
