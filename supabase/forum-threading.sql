@@ -37,6 +37,7 @@ DROP TRIGGER IF EXISTS hehku_forum_thread_validation ON public.hehku_forum_messa
 CREATE TRIGGER hehku_forum_thread_validation
  BEFORE INSERT OR UPDATE OF parent_id ON public.hehku_forum_messages
  FOR EACH ROW EXECUTE FUNCTION public.hehku_validate_forum_thread();
--- Aiemmat RLS-oikeudet pysyvät voimassa. Tämä päivitys ei avaa uusia käyttöoikeuksia.
+-- Salli ketjutiedon tallentaminen. RLS rajaa edelleen viestit hyväksyntäjonoon.
+GRANT INSERT (parent_id) ON public.hehku_forum_messages TO anon, authenticated;
 NOTIFY pgrst, 'reload schema';
 COMMIT;
