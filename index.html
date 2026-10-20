@@ -584,7 +584,17 @@ body{background:#210818!important;color:#f8e4ec}
 </style><style>
 /* Give the desktop discussion invitation room above the divider. */
 @media(min-width:721px){.hehku-top-a-main{padding-top:12px;padding-bottom:12px;align-items:center}.hehku-discuss-invite{align-self:center;justify-content:center;margin-block:0}}
-</style></head><body>
+</style>
+<style>
+/* Darker pink discussion invitation and desktop alignment. */
+.hehku-top-a-actions #hehku-top-discuss{background:#b84272;border-color:#d76b96;color:#fff}
+.hehku-top-a-actions #hehku-top-discuss:hover{background:#a33462;border-color:#d76b96;color:#fff}
+@media(min-width:721px){
+.hehku-top-a-actions{align-items:center}
+.hehku-top-a-actions .hehku-discuss-invite{align-self:center;justify-content:center;flex-shrink:0;padding-block:6px;margin-left:8px}
+}
+</style>
+</head><body>
 <script>
 /* HEHKU: read saved cart before async catalog loading; never show a placeholder zero. */
 (function(){
