@@ -737,7 +737,7 @@ if(!response.ok)throw new Error('Failed to load');
 const rows=await response.json();if(!Array.isArray(rows))throw new Error('Invalid response');
 for(const row of rows){
 const card=document.createElement('a'),name=document.createElement('strong'),body=document.createElement('p'),hint=document.createElement('small');
-card.className='forum-preview-card';card.href='keskustelu.html';
+card.className='forum-preview-card';card.href='keskustelu.html?ketju='+encodeURIComponent(row.id);
 name.textContent=row.nickname||'Anonyymi';
 const text=Array.from(String(row.body||'').trim());body.textContent=text.slice(0,180).join('')+(text.length>180?'…':'');
 hint.textContent='Lue keskustelupalstalla →';card.append(name,body,hint);list.append(card);
