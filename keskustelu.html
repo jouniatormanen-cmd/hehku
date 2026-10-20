@@ -60,14 +60,20 @@ const endpoint="https://xnaoxmlvtaosuanwfpyc.supabase.co/rest/v1/",key="sb_publi
 const form=document.getElementById('message-form'),feedback=document.getElementById('feedback'),send=document.getElementById('send'),list=document.getElementById('messages'),status=document.getElementById('list-status'),refresh=document.getElementById('refresh'),more=document.getElementById('more');
 const params=new URLSearchParams(location.search),requested=params.get('ketju');
 const threadId=requested&&/^[a-zA-Z0-9-]{1,80}$/.test(requested)?requested:null;
-let offset=0,loading=false,lastSent=0,threading=false,parent=null;
+let offset=0,loading=false,lastSent=0,threading=false,parent=null,replyTarget=null;
+const formHome=form.parentNode;
+const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Peruuta vastaaminen';cancel.hidden=true;send.after(cancel);
+function startReply(row,article){replyTarget=row;article.after(form);configureForm();focusReply()}
+cancel.addEventListener('click',()=>{replyTarget=null;formHome.append(form);configureForm()});
 const heading=document.getElementById('messages-title'),formTitle=form.querySelector('h2'),context=document.getElementById('reply-context'),replyButton=document.getElementById('thread-reply');
-async function request(path,data){const response=await fetch(endpoint+path,{method:data?'POST':'GET',headers:{apikey:key,'Content-Type':'application/json',...(data?{Prefer:'return=minimal'}:{})},...(data?{body:JSON.stringify(data)}:{})});if(!response.ok)throw new Error('request failed');return data?null:response.json()}
+async function request(path,data){const response=await fetch(endpoint+path,{method:data?'POST':'GET',headers:{apikey:key,'Content-Type':'application/json',...(data?{Prefer:'return=minimal'}:{})},...(data?{body:JSON.stringify(data)}:{})});if(!response.ok){const error=await response.json().catch(()=>({}));throw new Error(error.code||'request failed')}return data?null:response.json()}
 function focusReply(){form.scrollIntoView({behavior:'auto',block:'start'});form.elements.body.focus()}
 replyButton.addEventListener('click',focusReply);
 function configureForm(){
-formTitle.textContent=parent?'Vastaa keskusteluun':'Aloita keskustelu';
-context.textContent=parent?'Vastaat nimimerkille '+(parent.nickname||'Anonyymi')+'. Vastauksesi julkaistaan tässä ketjussa ylläpidon hyväksynnän jälkeen.':'';
+const target=replyTarget||parent;
+formTitle.textContent=target?'Vastaa nimimerkille '+(target.nickname||'Anonyymi'):'Aloita keskustelu';
+cancel.hidden=!replyTarget;
+context.textContent=target?'Vastauksesi tulee tämän keskustelun alle ylläpidon hyväksynnän jälkeen.':'';
 replyButton.hidden=!parent;
 send.disabled=Boolean(threadId&&!parent);
 if(threadId&&!parent){context.textContent='Keskustelua ei löytynyt tai sitä ei ole julkaistu. Palaa keskustelulistaan aloittaaksesi uuden keskustelun.'}
@@ -77,10 +83,11 @@ const article=document.createElement('article'),title=document.createElement('st
 article.id='viesti-'+row.id;title.textContent=row.nickname||'Anonyymi';date.textContent=' · '+new Date(row.created_at).toLocaleString('fi-FI');body.textContent=row.body;
 article.append(title,date,body);
 if(root&&threading&&!threadId){
-const open=document.createElement('a');open.className='thread-open';open.href='keskustelu.html?ketju='+encodeURIComponent(row.id);open.textContent='Avaa keskustelu ja vastaa →';article.append(open);
+const open=document.createElement('a');open.className='thread-open';open.href='keskustelu.html?ketju='+encodeURIComponent(row.id);open.textContent='Näytä keskustelu →';article.append(open);
+const answer=document.createElement('button');answer.type='button';answer.textContent='Vastaa';answer.addEventListener('click',()=>startReply(row,article));article.append(answer);
 }
 if(root&&parent){
-const answer=document.createElement('button');answer.type='button';answer.textContent='Vastaa';answer.addEventListener('click',focusReply);article.append(answer);
+const answer=document.createElement('button');answer.type='button';answer.textContent='Vastaa';answer.addEventListener('click',()=>startReply(row,article));article.append(answer);
 }
 report.type='button';report.className='report-button';report.textContent='Ilmoita asiattomasta viestistä';
 report.addEventListener('click',async()=>{const reason=window.prompt('Miksi ilmoitat tästä viestistä? Älä lisää henkilötietoja. (3–500 merkkiä)');if(reason===null)return;const value=reason.trim();if(value.length<3||value.length>500){window.alert('Kirjoita 3–500 merkin perustelu.');return}report.disabled=true;try{await request('hehku_forum_reports',{message_id:row.id,reason:value});report.textContent='Ilmoitus lähetetty ylläpidolle'}catch(e){report.disabled=false;window.alert('Ilmoituksen lähetys epäonnistui. Yritä uudelleen.')}});
@@ -93,7 +100,7 @@ try{
 if(reset){try{await request('hehku_forum_messages?select=parent_id&limit=0');threading=true}catch(e){threading=false}}
 if(threadId&&!threading)throw new Error('Threading unavailable');
 const select='select=id,nickname,body,created_at'+(threading?',parent_id':'');
-if(reset){list.replaceChildren();parent=null}
+if(reset){replyTarget=null;formHome.append(form);list.replaceChildren();parent=null}
 if(threadId&&reset){
 const roots=await request('hehku_forum_messages?'+select+'&id=eq.'+encodeURIComponent(threadId)+'&parent_id=is.null&status=eq.approved&limit=1');
 parent=roots[0]||null;configureForm();
@@ -118,8 +125,8 @@ const body=form.elements.body.value.trim(),nickname=form.elements.nickname.value
 if(body.length<3||body.length>2000||nickname.length>40){feedback.textContent='Tarkista viestin pituus ja nimimerkki.';return}
 if(Date.now()-lastSent<30000){feedback.textContent='Odota hetki ennen seuraavaa viestiä.';return}
 send.disabled=true;feedback.textContent='Lähetetään…';
-try{const data={nickname,body};if(parent)data.parent_id=parent.id;await request('hehku_forum_messages',data);lastSent=Date.now();form.reset();feedback.textContent=parent?'Vastauksesi odottaa ylläpidon hyväksyntää. Se julkaistaan tässä keskustelussa.':'Keskustelunaloituksesi odottaa ylläpidon hyväksyntää.'}
-catch(e){feedback.textContent='Viestin lähettäminen epäonnistui. Tekstisi on säilytetty. Yritä uudelleen.'}
+try{const data={nickname,body};const target=replyTarget||parent;if(target)data.parent_id=target.id;await request('hehku_forum_messages',data);lastSent=Date.now();form.reset();feedback.textContent=target?'Vastauksesi odottaa ylläpidon hyväksyntää. Se julkaistaan tässä keskustelussa.':'Keskustelunaloituksesi odottaa ylläpidon hyväksyntää.'}
+catch(e){feedback.textContent=e.message==='42501'?'Vastaamisen käyttöoikeus puuttuu vielä. Tekstisi on säilytetty.':'Viestin lähettäminen epäonnistui. Tekstisi on säilytetty. Yritä uudelleen.'}
 finally{send.disabled=false}
 });
 refresh.addEventListener('click',()=>load());more.addEventListener('click',()=>load(false));
