@@ -45,6 +45,25 @@ article .report-button{display:block;margin-top:12px}
 #reply-context:empty{display:none}
 #reply-context{font-size:14px;color:#753754}
 #message-form{margin-top:34px}
+
+/* Compact public conversation */
+#messages{margin-top:18px}
+#messages article{margin:0;padding:17px 20px;border-radius:0;box-shadow:none;border:0;border-bottom:1px solid #e4d5df;background:#fffafc}
+#messages article.thread-root{border:1px solid #d7bdce;border-left:4px solid #b84272;border-radius:16px;margin-bottom:16px;padding:22px}
+#messages article.thread-reply{border-left:3px solid #dec4d5;margin-left:14px}
+#messages article p{margin:8px 0;line-height:1.55}
+#messages article small{font-size:11px}
+#messages article .report-button{display:inline-block;margin:0 0 0 14px;padding:4px 8px;min-height:32px;font-size:11px;border:0}
+#messages article button{min-height:36px;padding:5px 12px}
+.reply-reference{display:block;font-size:12px;color:#805269;margin-top:5px;text-underline-offset:3px}
+#messages article:target{background:#fbe9f2;outline:2px solid #b84272}
+#message-form{padding:20px;margin:12px 0 20px}
+#message-form h2{font-size:20px;margin-bottom:8px}
+#message-form label{margin-top:10px}
+#message-form textarea{min-height:95px}
+#message-form [hidden]{display:none}
+#thread-reply{display:none}
+@media(max-width:600px){#messages article{padding:14px}#messages article.thread-reply{margin-left:7px}#messages article.thread-root{padding:17px}#message-form{padding:16px}#send{width:auto}#messages article small{display:inline}}
 </style></head><body><header><a href="index.html">← HEHKUn etusivulle</a></header><main>
 <div class="forum-hero"><p class="forum-eyebrow">HEHKU · Kuumat puheenaiheet</p><h1>Puhutaan siitäkin.</h1><p class="forum-lead">Nautinto, halut ja kaikki, mitä olet miettinyt muttet vielä kysynyt. Kysy rohkeasti tai jaa kokemuksesi.</p><a class="write-link" href="#message-form">Kirjoita oma viesti ↓</a></div>
 <div class="intro"><p>Keskustellaan kunnioittavasti ja annetaan tilaa erilaisille kokemuksille.</p><p>Voit lähettää viestin ilman rekisteröitymistä. Nimimerkki on vapaaehtoinen. Ylläpito tarkistaa viestit ennen julkaisua, joten uusi viesti ei näy heti.</p><small>Älä julkaise henkilötietoja, yhteystietoja tai muiden yksityisiä asioita. Kirjoita vain sellaista, jonka haluat näkyvän julkisesti. Palsta on tarkoitettu täysi-ikäisille.</small></div>
@@ -60,10 +79,11 @@ const endpoint="https://xnaoxmlvtaosuanwfpyc.supabase.co/rest/v1/",key="sb_publi
 const form=document.getElementById('message-form'),feedback=document.getElementById('feedback'),send=document.getElementById('send'),list=document.getElementById('messages'),status=document.getElementById('list-status'),refresh=document.getElementById('refresh'),more=document.getElementById('more');
 const params=new URLSearchParams(location.search),requested=params.get('ketju');
 const threadId=requested&&/^[a-zA-Z0-9-]{1,80}$/.test(requested)?requested:null;
-let offset=0,loading=false,lastSent=0,threading=false,parent=null,replyTarget=null;
+let offset=0,loading=false,lastSent=0,threading=false,parent=null,replyTarget=null,replyLinks=false;
+const knownMessages=new Map();
 const formHome=form.parentNode;
 const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Peruuta vastaaminen';cancel.hidden=true;send.after(cancel);
-function startReply(row,article){replyTarget=row;article.after(form);configureForm();focusReply()}
+function startReply(row,article){feedback.textContent='';replyTarget=row;article.after(form);configureForm();focusReply()}
 cancel.addEventListener('click',()=>{replyTarget=null;formHome.append(form);configureForm()});
 const heading=document.getElementById('messages-title'),formTitle=form.querySelector('h2'),context=document.getElementById('reply-context'),replyButton=document.getElementById('thread-reply');
 async function request(path,data){const response=await fetch(endpoint+path,{method:data?'POST':'GET',headers:{apikey:key,'Content-Type':'application/json',...(data?{Prefer:'return=minimal'}:{})},...(data?{body:JSON.stringify(data)}:{})});if(!response.ok){const error=await response.json().catch(()=>({}));throw new Error(error.code||'request failed')}return data?null:response.json()}
@@ -80,13 +100,17 @@ if(threadId&&!parent){context.textContent='Keskustelua ei löytynyt tai sitä ei
 }
 function renderMessage(row,root=false){
 const article=document.createElement('article'),title=document.createElement('strong'),date=document.createElement('small'),body=document.createElement('p'),report=document.createElement('button');
+knownMessages.set(String(row.id),row);
+article.className=root?'thread-root':'thread-reply';
 article.id='viesti-'+row.id;title.textContent=row.nickname||'Anonyymi';date.textContent=' · '+new Date(row.created_at).toLocaleString('fi-FI');body.textContent=row.body;
-article.append(title,date,body);
+article.append(title,date);
+if(row.reply_to_id){const reference=document.createElement('a');reference.className='reply-reference';reference.href='#viesti-'+row.reply_to_id;const recipient=knownMessages.get(String(row.reply_to_id));reference.textContent='↳ Vastaus: '+(recipient?.nickname||'aiempi viesti');article.append(reference)}
+article.append(body);
 if(root&&threading&&!threadId){
 const open=document.createElement('a');open.className='thread-open';open.href='keskustelu.html?ketju='+encodeURIComponent(row.id);open.textContent='Näytä keskustelu →';article.append(open);
 const answer=document.createElement('button');answer.type='button';answer.textContent='Vastaa';answer.addEventListener('click',()=>startReply(row,article));article.append(answer);
 }
-if(root&&parent){
+if(parent&&(root||replyLinks)){
 const answer=document.createElement('button');answer.type='button';answer.textContent='Vastaa';answer.addEventListener('click',()=>startReply(row,article));article.append(answer);
 }
 report.type='button';report.className='report-button';report.textContent='Ilmoita asiattomasta viestistä';
@@ -97,16 +121,16 @@ async function load(reset=true){
 if(loading)return;loading=true;refresh.disabled=true;more.disabled=true;status.textContent='Ladataan keskusteluja…';
 const start=reset?0:offset;
 try{
-if(reset){try{await request('hehku_forum_messages?select=parent_id&limit=0');threading=true}catch(e){threading=false}}
+if(reset){try{await request('hehku_forum_messages?select=parent_id&limit=0');threading=true}catch(e){threading=false}try{await request('hehku_forum_messages?select=reply_to_id&limit=0');replyLinks=true}catch(e){replyLinks=false}}
 if(threadId&&!threading)throw new Error('Threading unavailable');
-const select='select=id,nickname,body,created_at'+(threading?',parent_id':'');
-if(reset){replyTarget=null;formHome.append(form);list.replaceChildren();parent=null}
+const select='select=id,nickname,body,created_at'+(threading?',parent_id':'')+(replyLinks?',reply_to_id':'');
+if(reset){replyTarget=null;formHome.append(form);list.replaceChildren();knownMessages.clear();parent=null}
 if(threadId&&reset){
 const roots=await request('hehku_forum_messages?'+select+'&id=eq.'+encodeURIComponent(threadId)+'&parent_id=is.null&status=eq.approved&limit=1');
 parent=roots[0]||null;configureForm();
 if(!parent){heading.textContent='Keskustelua ei löytynyt';status.textContent='Keskustelua ei löytynyt tai sitä ei ole julkaistu.';more.hidden=true;return}
 heading.textContent='Keskustelu';renderMessage(parent,true);
-const label=document.createElement('h3');label.textContent='Vastaukset';list.append(label);
+const label=document.createElement('h3');label.textContent='Yhteinen keskustelu';list.append(label);
 }
 let query='hehku_forum_messages?'+select+'&status=eq.approved';
 if(threading)query+=threadId?'&parent_id=eq.'+encodeURIComponent(threadId):'&parent_id=is.null';
@@ -125,7 +149,7 @@ const body=form.elements.body.value.trim(),nickname=form.elements.nickname.value
 if(body.length<3||body.length>2000||nickname.length>40){feedback.textContent='Tarkista viestin pituus ja nimimerkki.';return}
 if(Date.now()-lastSent<30000){feedback.textContent='Odota hetki ennen seuraavaa viestiä.';return}
 send.disabled=true;feedback.textContent='Lähetetään…';
-try{const data={nickname,body};const target=replyTarget||parent;if(target)data.parent_id=target.id;await request('hehku_forum_messages',data);lastSent=Date.now();form.reset();feedback.textContent=target?'Vastauksesi odottaa ylläpidon hyväksyntää. Se julkaistaan tässä keskustelussa.':'Keskustelunaloituksesi odottaa ylläpidon hyväksyntää.'}
+try{const data={nickname,body};const target=replyTarget||parent;if(target){data.parent_id=target.parent_id||target.id;if(replyLinks)data.reply_to_id=target.id;}await request('hehku_forum_messages',data);lastSent=Date.now();form.reset();feedback.textContent=target?'Vastauksesi odottaa ylläpidon hyväksyntää. Se julkaistaan tässä keskustelussa.':'Keskustelunaloituksesi odottaa ylläpidon hyväksyntää.'}
 catch(e){feedback.textContent=e.message==='42501'?'Vastaamisen käyttöoikeus puuttuu vielä. Tekstisi on säilytetty.':'Viestin lähettäminen epäonnistui. Tekstisi on säilytetty. Yritä uudelleen.'}
 finally{send.disabled=false}
 });
